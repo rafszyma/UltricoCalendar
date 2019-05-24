@@ -45,14 +45,22 @@ namespace UltricoCalendarCommon
             Log.Information($"Running {ApiName}");
         }
         
-        protected ActorSystem RunActorSystem()
-        {
+        protected ActorSystem RunActorSystem(){
+            var config = ConfigurationFactory.ParseString(@"
+akka {  
+    actor {
+        provider = remote
+    }
+    remote {
+        dot-netty.tcp {
+            port = 0 # bound to a dynamic port assigned by the OS
+            hostname = localhost
+        }
+    }
+}");
             // Akka
-            var configurationStr = File.ReadAllText(Path.Combine(Env.ContentRootPath, "api.hocon"));
 
-            Log.Information(configurationStr);
-
-            return ActorSystem.Create("solomio", ConfigurationFactory.ParseString(configurationStr));
+            return ActorSystem.Create("ultrico-calendar", config);
         }
         
         protected void ConfigureSwagger(IServiceCollection services)

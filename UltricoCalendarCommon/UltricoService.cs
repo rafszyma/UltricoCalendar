@@ -11,7 +11,7 @@ using UltricoCalendarContracts;
 
 namespace UltricoCalendarCommon
 {
-    public abstract class UltricoService
+    public class UltricoService
     {
         private ActorSystem _actorSystem;
 
@@ -22,8 +22,6 @@ namespace UltricoCalendarCommon
         private readonly UltricoModule _serviceModule;
 
         private readonly UltricoServiceSettings _serviceSettings;
-        
-        private string _akkaConfigurationStr;
 
         public UltricoService(string serviceName, UltricoModule serviceModule, UltricoServiceSettings serviceSettings)
         {
@@ -40,6 +38,7 @@ namespace UltricoCalendarCommon
             MigrateDb();
             CreateActorSystem();
             _serviceModule.CreateActors(_actorSystem);
+            _serviceModule.SystemShutdown(_actorSystem);
         }
 
         private void SetupServiceConfiguration()
@@ -50,8 +49,6 @@ namespace UltricoCalendarCommon
                 .Build();
             
             configuration.Bind(_serviceSettings);
-            
-            _akkaConfigurationStr = File.ReadAllText("service.hocon");
         }
 
         private void SetupLogger()
@@ -63,7 +60,7 @@ namespace UltricoCalendarCommon
                 .Enrich.WithProperty("Diag.Application", _serviceName)
                 .CreateLogger();
             
-            Log.Information($"Using Serilog logger for {_serviceName} using {_serviceSettings.LogEnvironment} property on system with LogEnvironment={Environment.GetEnvironmentVariable("LogEnvironment")} ");
+            Log.Information($"Using Serilog logger for {_serviceName} using {_serviceSettings.LogEnvironment} property");
         }
 
         private void SetupIoC()
@@ -84,10 +81,22 @@ namespace UltricoCalendarCommon
         {
             try
             {
-                _actorSystem = ActorSystem.Create("solomio", ConfigurationFactory.ParseString(_akkaConfigurationStr));
+                var config = ConfigurationFactory.ParseString(@"
+akka {  
+    actor {
+        provider = remote
+    }
+    remote {
+        dot-netty.tcp {
+            port = 8081 #bound to a specific port
+            hostname = localhost
+        }
+    }
+}");
+                _actorSystem = ActorSystem.Create("ultrico-calendar", config);
                 if (_container != null)
                 {
-                    var autoFacDependencyResolver = new AutoFacDependencyResolver(_container, _actorSystem);
+                    new AutoFacDependencyResolver(_container, _actorSystem);
                 }
             }
             catch (Exception ex)

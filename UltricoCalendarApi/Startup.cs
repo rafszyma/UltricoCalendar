@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using UltricoCalendarCommon;
+using UltricoCalendarContracts;
 
 namespace UltricoCalendarApi
 {
@@ -24,9 +25,7 @@ namespace UltricoCalendarApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var actorSystem = RunActorSystem();
-
-            ActorRefs.CalendarActor = actorSystem.ActorOf(Props.Empty, "calendar-actor");
+            AkkaSystem.ActorSystem = RunActorSystem();
 
             services.AddTransient(provider => ApiSettings);
             
