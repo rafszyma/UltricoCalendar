@@ -17,8 +17,17 @@ namespace UltricoCalendarApi
             CreateWebHostBuilder(args).Build().Run();
         }
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+        {
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddCommandLine(args)
+                .Build();
+
+            return WebHost.CreateDefaultBuilder(args).UseConfiguration(config).UseContentRoot(Directory.GetCurrentDirectory())
+                .UseKestrel().UseUrls("http://*:5010")
                 .UseStartup<Startup>();
+        }
+            
     }
 }

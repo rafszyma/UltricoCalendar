@@ -5,6 +5,7 @@ using Akka.Actor;
 using Akka.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -59,7 +60,7 @@ namespace UltricoCalendarCommon
             services.AddSwaggerGen(
                 c =>
                 {
-                    c.SwaggerDoc("Ultrico Swagger", new Info{Title = ApiName, Version = "1.0"});
+                    c.SwaggerDoc("v1", new Info{Title = ApiName, Version = "v1"});
                     var basePath = AppContext.BaseDirectory;
                     var xmlPath = Path.Combine(basePath, $"{Assembly.GetEntryAssembly().GetName().Name.ToLower()}.xml");
                     c.IncludeXmlComments(xmlPath);
@@ -70,6 +71,12 @@ namespace UltricoCalendarCommon
                 // UseFullTypeNameInSchemaIds replacement for .NET Core
                 options.CustomSchemaIds(x => x.FullName);
             });
+        }
+        
+        protected void ConfigureControllers(IServiceCollection services)
+        {
+            services.AddMvcCore().AddApiExplorer()
+                .AddJsonOptions(options => { options.SerializerSettings.DateFormatString = "dd-MM-yyyy HH:mm:ss"; });
         }
         
         protected void Configure(IApplicationBuilder app)
