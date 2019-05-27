@@ -6,9 +6,9 @@ namespace UltricoCalendarContracts.Interfaces
 {
     public interface IEditedSeriesEventService
     {
-        void EditEventFromSeries(int id, ScheduleEvent newModel);
+        void EditEventFromSeries(int id, ICalendarEvent newEventModel);
         
-        void GetEditedEventFromSeries(int id);
+        ICalendarEvent GetEditedEventFromSeries(int id);
         
         void DeleteEventFromSeries(int seriesId, DateTime dateTime);
     }

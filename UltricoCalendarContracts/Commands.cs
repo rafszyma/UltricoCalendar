@@ -8,7 +8,7 @@ namespace UltricoCalendarContracts
 {
     public class Commands
     {
-        public abstract class EventCommands<T> where T : BaseEvent
+        public abstract class EventCommands<T> where T : BaseEventModel
         {
             public class Add
             {
@@ -45,21 +45,21 @@ namespace UltricoCalendarContracts
 
         }
         
-        public class SingleEventCommands : EventCommands<ScheduleEvent>{}
+        public class SingleEventCommands : EventCommands<ScheduleEventModel>{}
         
-        public class EventSeriesCommands : EventCommands<ScheduleEventSeries>{}
+        public class EventSeriesCommands : EventCommands<ScheduleEventModelSeries>{}
 
         public class EditEventFromSeriesCommands
         {
             public class EditEventFromSeries
             {
-                public ScheduleEvent EventData { get; }
+                public ScheduleEventModelFromSeries EventModelData { get; }
                 
                 public int SeriesId { get; }
 
-                public EditEventFromSeries(ScheduleEvent eventData, int seriesId)
+                public EditEventFromSeries(ScheduleEventModelFromSeries eventModelData, int seriesId)
                 {
-                    EventData = eventData;
+                    EventModelData = eventModelData;
                     SeriesId = seriesId;
                 }
             }

@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Akka.Actor;
+using Autofac;
 using Autofac.Features.OwnedInstances;
 using Serilog;
+using UltricoCalendarCommon;
 using UltricoCalendarContracts;
+using UltricoCalendarContracts.Interfaces;
 using UltricoCalendarContracts.Interfaces.Repository;
 using UltricoCalendarContracts.Models;
 using UltricoCalendarService.Persistance;
@@ -13,40 +16,41 @@ namespace UltricoCalendarService.Actors
 {
     public class QueryActor : ReceiveActor
     {
-        public static Props Props => Props.Create(() => new QueryActor());
-        
-        public ISingleEventRepository SingleEventRepository { get; }
-        
-        public IEventSeriesRepository EventSeriesRepository { get; }
-        
-        public IEditedSeriesEventRepository EditedSeriesEventRepository { get; }
+        private static Props Props => Props.Create(() => new QueryActor());
+
+        private readonly ISingleEventService _singleEventService = UltricoModule.IoCContainer.Resolve<ISingleEventService>();
+
+        private readonly IEventSeriesService _eventSeriesService = UltricoModule.IoCContainer.Resolve<IEventSeriesService>();
+
+        private readonly IEditedSeriesEventService _editedSeriesEventService = UltricoModule.IoCContainer.Resolve<IEditedSeriesEventService>();
+
+        private readonly IMetadataService _metadataService = UltricoModule.IoCContainer.Resolve<IMetadataService>();
         
         public QueryActor()
         {
+            
             Receive<Queries.GetEventMetadata>(query =>
             {
-                var singleEvents = SingleEventRepository.GetSingleEvents(query.From, query.To).ToList();
-                var eventSeries = EventSeriesRepository.GetEventSeries(query.From, query.To).ToList();
-                
-                // TODO return value
+                var result = _metadataService.GetMetadata(query.From, query.To);
+                Context.Sender.Tell(result);
             });
             
             Receive<Queries.SingleEventQueries.Get>(query =>
             {
-                SingleEventRepository.GetSingleEvent(query.Id);
-                // TODO Return value
+                var result = _singleEventService.GetEvent(query.Id);
+                Context.Sender.Tell(result);
             });
             
             Receive<Queries.EventSeriesQueries.Get>(query =>
             {
-                EventSeriesRepository.GetEventSeries(query.Id);
-                // TODO Return value
+                var result = _eventSeriesService.GetEventSeries(query.Id);
+                Context.Sender.Tell(result);
             });
             
             Receive<Queries.EditEventFromSeriesQueries.Get>(query =>
             {
-                EditedSeriesEventRepository.GetEditedSeriesEvent(query.Id);
-                // TODO Return value
+                var result = _editedSeriesEventService.GetEditedEventFromSeries(query.Id);
+                Context.Sender.Tell(result);
             });
         }
         

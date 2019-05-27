@@ -85,7 +85,7 @@ akka {
         
         protected void ConfigureControllers(IServiceCollection services)
         {
-            services.AddMvcCore().AddApiExplorer()
+            services.AddMvcCore().AddJsonFormatters().AddApiExplorer()
                 .AddJsonOptions(options => { options.SerializerSettings.DateFormatString = "dd-MM-yyyy HH:mm:ss"; });
         }
         

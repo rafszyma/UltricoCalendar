@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UltricoCalendarContracts.Entities;
 
 namespace UltricoCalendarContracts.Interfaces.Repository
@@ -8,5 +10,6 @@ namespace UltricoCalendarContracts.Interfaces.Repository
         EditedSeriesEvent GetEditedSeriesEvent(int id);
         void UpdateEditedSeriesEvent(EditedSeriesEvent editedSeriesEvent);
         void DeleteEditedSeriesEvent(int id);
+        IEnumerable<EditedSeriesEvent> GetEditedSeriesEvent(DateTime from, DateTime to);
     }
 }

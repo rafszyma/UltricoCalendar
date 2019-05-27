@@ -1,11 +1,10 @@
 using System;
-using UltricoCalendarContracts.Entities;
 using UltricoCalendarContracts.Models;
 
 namespace UltricoCalendarContracts.Interfaces
 {
-    public interface ICalendarEvent
+    public interface ICalendarDisplayable
     {
-        CalendarEvent ToEntity();
+        EventMetadata ToMetadata(DateTime from, DateTime to);
     }
 }

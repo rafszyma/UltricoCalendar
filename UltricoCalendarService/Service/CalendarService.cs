@@ -1,4 +1,8 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using Autofac;
+using UltricoCalendarCommon;
 using UltricoCalendarContracts.Entities;
 using UltricoCalendarContracts.Interfaces;
 using UltricoCalendarContracts.Interfaces.Repository;
@@ -6,66 +10,92 @@ using UltricoCalendarContracts.Models;
 
 namespace UltricoCalendarService.Service
 {
-    public class CalendarService : ISingleEventService, IEventSeriesService, IEditedSeriesEventService
+    public class CalendarService : ISingleEventService, IEventSeriesService, IEditedSeriesEventService, IMetadataService
     {
-        public ISingleEventRepository SingleEventRepository { get; }
+        private readonly ISingleEventRepository _singleEventRepository = UltricoModule.IoCContainer.Resolve<ISingleEventRepository>();
         
-        public IEventSeriesRepository EventSeriesRepository { get; }
+        private readonly IEventSeriesRepository _eventSeriesRepository = UltricoModule.IoCContainer.Resolve<IEventSeriesRepository>();
         
-        public IEditedSeriesEventRepository EditedSeriesEventRepository { get; }
+        private readonly IEditedSeriesEventRepository _editedSeriesEventRepository = UltricoModule.IoCContainer.Resolve<IEditedSeriesEventRepository>();
         
-        public void AddEvent(ScheduleEvent newEvent)
+        public void AddEvent(ICalendarEvent newEventModel)
         {
+            _singleEventRepository.AddSingleEvent((SingleEvent)newEventModel.ToEntity());
         }
 
-        public ScheduleEvent GetEvent(int id)
+        public ICalendarEvent GetEvent(int id)
         {
-            throw new NotImplementedException();
+            return (ScheduleEventModel)_singleEventRepository.GetSingleEvent(id).ToBaseModel();
         }
 
-        public void EditEvent(int id, ScheduleEvent newModel)
+        public void EditEvent(int id, ICalendarEvent newEventModel)
         {
-            throw new NotImplementedException();
+            var entity = (SingleEvent)newEventModel.ToEntity();
+            entity.Id = id;
+            _singleEventRepository.UpdateSingleEvent(entity);
         }
 
         public void DeleteEvent(int id)
         {
-            throw new NotImplementedException();
+            _singleEventRepository.DeleteSingleEvent(id);
         }
 
-        public void AddEventSeries(ScheduleEventSeries newEvent)
+        public void AddEventSeries(ICalendarEvent newEventModel)
         {
-            throw new NotImplementedException();
+            _eventSeriesRepository.AddEventSeries((EventSeries)newEventModel.ToEntity());
         }
 
-        public ScheduleEventSeries GetEventSeries(int id)
+        public ICalendarEvent GetEventSeries(int id)
         {
-            throw new NotImplementedException();
+            return (ScheduleEventModelSeries) _eventSeriesRepository.GetEventSeries(id).ToBaseModel();
         }
 
-        public void EditEventSeries(int id, ScheduleEventSeries newModel)
+        public void EditEventSeries(int id, ICalendarEvent newEventModel)
         {
-            throw new NotImplementedException();
+            var entity = (EventSeries)newEventModel.ToEntity();
+            entity.Id = id;
+            _eventSeriesRepository.UpdateEventSeries(entity);
+        }
+        
+        public void DeleteEventSeries(int id)
+        {
+            _eventSeriesRepository.DeleteEventSeries(id);
         }
 
-        public void EditEventFromSeries(int id, ScheduleEvent newModel)
+        public void EditEventFromSeries(int seriesId, ICalendarEvent newEventModel)
         {
-            throw new NotImplementedException();
+            var series = _eventSeriesRepository.GetEventSeries(seriesId);
+            var editedEvent = (EditedSeriesEvent) newEventModel.ToEntity();
+            series.EditedEvents.Add(editedEvent);
+            _eventSeriesRepository.UpdateEventSeries(series);
+            _editedSeriesEventRepository.AddEditedSeriesEvent(editedEvent);
         }
 
-        public void GetEditedEventFromSeries(int id)
+        public ICalendarEvent GetEditedEventFromSeries(int id)
         {
-            throw new NotImplementedException();
+            return (ScheduleEventModelFromSeries) _editedSeriesEventRepository.GetEditedSeriesEvent(id).ToBaseModel();
         }
 
         public void DeleteEventFromSeries(int seriesId, DateTime dateTime)
         {
-            throw new NotImplementedException();
+            var series = _eventSeriesRepository.GetEventSeries(seriesId);
+            series.DeletedOccurrences.Add(dateTime);
+            _eventSeriesRepository.UpdateEventSeries(series);
         }
 
-        public void DeleteEventSeries(int id)
+
+        public IEnumerable<EventMetadata> GetMetadata(DateTime @from, DateTime to)
         {
-            throw new NotImplementedException();
+            var result = new List<EventMetadata>();
+            var singleEvents = _singleEventRepository.GetSingleEvents(from, to);
+            var eventSeries = _eventSeriesRepository.GetEventSeries(from, to);
+            var editedEvents = _editedSeriesEventRepository.GetEditedSeriesEvent(from, to);
+            
+            result.AddRange(singleEvents.Select(x => x.ToMetadata(from, to)));
+            result.AddRange(eventSeries.Select(x => x.ToMetadata(from, to)));
+            result.AddRange(editedEvents.Select(x => x.ToMetadata(from, to)));
+
+            return result;
         }
     }
 }

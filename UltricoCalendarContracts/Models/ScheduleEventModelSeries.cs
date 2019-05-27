@@ -1,6 +1,8 @@
 using System;
+using System.Globalization;
 using System.Net;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using UltricoCalendarContracts.Entities;
 using UltricoCalendarContracts.Enums;
 using UltricoCalendarContracts.Extensions;
@@ -8,28 +10,28 @@ using UltricoCalendarContracts.Interfaces;
 
 namespace UltricoCalendarContracts.Models
 {
-    public class ScheduleEventSeries : BaseEvent
+    public class ScheduleEventModelSeries : BaseEventModel
     {
         public RepeatPeriod RepeatPeriod { get; set; }
         
         public FinishEnum FinishEnum { get; set; }
 
-        public int OccursAmount { get; set; }
+        public int? OccursAmount { get; set; }
         
-        public DateTime FinishDate { get; set; }
+        public DateTime? FinishDate { get; set; }
         
         public override CalendarEvent ToEntity()
         {
-            FinishClass finishClass;
+            FinishClass finishClass = new NeverFinish();
             
-            // This looks very ugly and is against SOLID but can't think of anything better
+            // This looks very ugly and is against SOLID but can't think of anything better, there is way to assign logic to Enum value in Java, but can't think of anything better in C#
             switch (FinishEnum)
             {
                 case FinishEnum.AfterDate:
-                    finishClass = FinishEnum.GetOccurenceClass(FinishDate);
+                    if (FinishDate != null) finishClass = FinishEnum.GetOccurenceClass(FinishDate.Value);
                     break;
                 case FinishEnum.AfterOccurs:
-                    finishClass = FinishEnum.GetOccurenceClass(OccursAmount);
+                    if (OccursAmount != null) finishClass = FinishEnum.GetOccurenceClass(OccursAmount.Value);
                     break;
                 case FinishEnum.NeverFinish:
                     finishClass = FinishEnum.GetOccurenceClass();
@@ -43,11 +45,11 @@ namespace UltricoCalendarContracts.Models
                 Title = Title,
                 Description = Description,
                 Start = Start,
-                Duration = Duration == TimeSpan.Zero
+                Duration = TimeSpan.Parse(Duration) == TimeSpan.Zero
                     ? EventDuration.FullDayDuration()
-                    : EventDuration.TimeSpanDuration(Duration),
+                    : EventDuration.TimeSpanDuration(TimeSpan.Parse(Duration)),
                 MailAddresses = MailAddresses,
-                RepeatEvery = RepeatPeriod,
+                RepeatPeriod = RepeatPeriod,
                 Finish = finishClass
             };
         }

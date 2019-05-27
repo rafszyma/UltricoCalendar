@@ -7,7 +7,7 @@ using UltricoCalendarContracts.Interfaces;
 
 namespace UltricoCalendarContracts.Models
 {
-    public class ScheduleEvent : BaseEvent 
+    public class ScheduleEventModel : BaseEventModel 
     {
 
         public override CalendarEvent ToEntity()
@@ -17,7 +17,7 @@ namespace UltricoCalendarContracts.Models
                 Title = Title,
                 Description = Description,
                 Start = Start,
-                Duration = Duration == TimeSpan.Zero ? EventDuration.FullDayDuration() : EventDuration.TimeSpanDuration(Duration),
+                Duration = TimeSpan.Parse(Duration) == TimeSpan.Zero ? EventDuration.FullDayDuration() : EventDuration.TimeSpanDuration(TimeSpan.Parse(Duration)),
                 MailAddresses = MailAddresses
             };
         }

@@ -6,13 +6,13 @@ namespace UltricoCalendarContracts
 {
     public class FinishAfterDate : FinishClass
     {
-        private readonly DateTime _timeWhenFinished;
+        public DateTime? TimeWhenFinished { get; }
         
-        public override List<DateTime> Occur(RepeatPeriod repeatPeriod, DateTime repeatFrom, DateTime repeatTill)
+        public override IEnumerable<DateTime> Occur(RepeatPeriod repeatPeriod, DateTime repeatFrom, DateTime repeatTill)
         {
             var occurrences = new List<DateTime>();
             var latestTime = repeatFrom;
-            while (latestTime < _timeWhenFinished || DateTime.Now < repeatTill)
+            while (latestTime < TimeWhenFinished || DateTime.Now < repeatTill)
             {
                 occurrences.Add(latestTime);
                 latestTime = latestTime.Add(repeatPeriod.NextOccurence(latestTime).Subtract(latestTime));
@@ -21,9 +21,14 @@ namespace UltricoCalendarContracts
             return occurrences;
         }
 
+        public override FinishEnum GetFinishValue()
+        {
+            return FinishEnum.AfterDate;
+        }
+
         public FinishAfterDate(DateTime timeWhenFinished)
         {
-            _timeWhenFinished = timeWhenFinished;
+            TimeWhenFinished = timeWhenFinished;
         }
     }
 }

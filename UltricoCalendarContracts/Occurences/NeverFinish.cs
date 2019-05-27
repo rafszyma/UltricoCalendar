@@ -6,7 +6,7 @@ namespace UltricoCalendarContracts
 {
     public class NeverFinish : FinishClass
     {
-        public override List<DateTime> Occur(RepeatPeriod repeatPeriod, DateTime repeatFrom, DateTime repeatTill)
+        public override IEnumerable<DateTime> Occur(RepeatPeriod repeatPeriod, DateTime repeatFrom, DateTime repeatTill)
         {
             var occurrences = new List<DateTime>();
             var latestTime = repeatFrom;
@@ -17,6 +17,11 @@ namespace UltricoCalendarContracts
             }
 
             return occurrences;
+        }
+
+        public override FinishEnum GetFinishValue()
+        {
+            return FinishEnum.NeverFinish;
         }
     }
 }

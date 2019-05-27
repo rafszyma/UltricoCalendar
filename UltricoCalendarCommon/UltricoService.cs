@@ -15,7 +15,7 @@ namespace UltricoCalendarCommon
     {
         private ActorSystem _actorSystem;
 
-        private IContainer _container;
+        public static IContainer Container;
 
         private readonly string _serviceName;
 
@@ -67,14 +67,15 @@ namespace UltricoCalendarCommon
         {
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(_serviceModule);
-            containerBuilder.RegisterInstance(_serviceSettings); // Intended
+            containerBuilder.RegisterInstance(_serviceSettings);
             containerBuilder.RegisterInstance(_serviceSettings).AsSelf();
-            _container = containerBuilder.Build();
+            Container = containerBuilder.Build();
+            UltricoModule.IoCContainer = Container;
         }
 
         private void MigrateDb()
         {
-            _serviceModule.MigrateDatabase(_container);
+            _serviceModule.MigrateDatabase(Container);
         }
 
         private void CreateActorSystem()
@@ -94,9 +95,9 @@ akka {
     }
 }");
                 _actorSystem = ActorSystem.Create("ultrico-calendar", config);
-                if (_container != null)
+                if (Container != null)
                 {
-                    new AutoFacDependencyResolver(_container, _actorSystem);
+                    new AutoFacDependencyResolver(Container, _actorSystem);
                 }
             }
             catch (Exception ex)

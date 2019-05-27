@@ -13,11 +13,9 @@ namespace UltricoCalendarService.Repositories
 {
     public class CalendarRepository : ISingleEventRepository, IEventSeriesRepository, IEditedSeriesEventRepository
     {
-        public Func<Owned<CalendarDbContext>> Factory { get; set; }
-        
         public void AddSingleEvent(SingleEvent singleEvent)
         {
-            using (var db = Factory.Invoke().Value)
+            using (var db = new CalendarDbContext())
             {
                 db.SingleEvents.Add(singleEvent);
                 db.SaveChanges();
@@ -26,7 +24,7 @@ namespace UltricoCalendarService.Repositories
 
         public SingleEvent GetSingleEvent(int id)
         {
-            using (var db = Factory.Invoke().Value)
+            using (var db = new CalendarDbContext())
             {
                 return db.SingleEvents.First(x => x.Id == id);
             }
@@ -34,7 +32,7 @@ namespace UltricoCalendarService.Repositories
 
         public void UpdateSingleEvent(SingleEvent editedSingleEvent)
         {
-            using (var db = Factory.Invoke().Value)
+            using (var db = new CalendarDbContext())
             {
                 db.SingleEvents.Update(editedSingleEvent);
                 db.SaveChanges();
@@ -43,7 +41,7 @@ namespace UltricoCalendarService.Repositories
 
         public void DeleteSingleEvent(int id)
         {
-            using (var db = Factory.Invoke().Value)
+            using (var db = new CalendarDbContext())
             {
                 var eventToDelete = db.SingleEvents.First(x => x.Id == id);
                 db.SingleEvents.Remove(eventToDelete);
@@ -53,7 +51,7 @@ namespace UltricoCalendarService.Repositories
 
         public IEnumerable<SingleEvent> GetSingleEvents(DateTime @from, DateTime to)
         {
-            using (var db = Factory.Invoke().Value)
+            using (var db = new CalendarDbContext())
             {
                 var singleEvents = db.SingleEvents.Where(x => (x.Start > @from && x.Start < to));
                 return singleEvents;
@@ -62,7 +60,7 @@ namespace UltricoCalendarService.Repositories
 
         public void DeleteEventSeries(int id)
         {
-            using (var db = Factory.Invoke().Value)
+            using (var db = new CalendarDbContext())
             {
                 var eventToDelete = db.EventSeries.First(x => x.Id == id);
                 db.EventSeries.Remove(eventToDelete);
@@ -72,7 +70,7 @@ namespace UltricoCalendarService.Repositories
 
         public IEnumerable<EventSeries> GetEventSeries(DateTime @from, DateTime to)
         {
-            using (var db = Factory.Invoke().Value)
+            using (var db = new CalendarDbContext())
             {
                 var eventSeries = db.EventSeries.Where(x => x.Start < to);
                 return eventSeries;
@@ -81,7 +79,7 @@ namespace UltricoCalendarService.Repositories
 
         public void AddEventSeries(EventSeries eventSeries)
         {
-            using (var db = Factory.Invoke().Value)
+            using (var db = new CalendarDbContext())
             {
                 db.EventSeries.Add(eventSeries);
                 db.SaveChanges();
@@ -90,7 +88,7 @@ namespace UltricoCalendarService.Repositories
 
         public EventSeries GetEventSeries(int id)
         {
-            using (var db = Factory.Invoke().Value)
+            using (var db = new CalendarDbContext())
             {
                 var eventSeries = db.EventSeries.First(x => x.Id == id);
                 return eventSeries;
@@ -99,7 +97,7 @@ namespace UltricoCalendarService.Repositories
 
         public void UpdateEventSeries(EventSeries editedEventSeries)
         {
-            using (var db = Factory.Invoke().Value)
+            using (var db = new CalendarDbContext())
             {
                 db.EventSeries.Update(editedEventSeries);
             }
@@ -107,7 +105,7 @@ namespace UltricoCalendarService.Repositories
 
         public void AddEditedSeriesEvent(EditedSeriesEvent editedSeriesEvent)
         {
-            using (var db = Factory.Invoke().Value)
+            using (var db = new CalendarDbContext())
             {
                 db.EditedSeriesEvents.Add(editedSeriesEvent);
                 db.SaveChanges();
@@ -116,7 +114,7 @@ namespace UltricoCalendarService.Repositories
 
         public EditedSeriesEvent GetEditedSeriesEvent(int id)
         {
-            using (var db = Factory.Invoke().Value)
+            using (var db = new CalendarDbContext())
             {
                 return db.EditedSeriesEvents.First(x => x.Id == id);;
             }
@@ -124,7 +122,7 @@ namespace UltricoCalendarService.Repositories
 
         public void UpdateEditedSeriesEvent(EditedSeriesEvent editedSeriesEvent)
         {
-            using (var db = Factory.Invoke().Value)
+            using (var db = new CalendarDbContext())
             {
                 db.EditedSeriesEvents.Update(editedSeriesEvent);
             }
@@ -132,11 +130,20 @@ namespace UltricoCalendarService.Repositories
 
         public void DeleteEditedSeriesEvent(int id)
         {
-            using (var db = Factory.Invoke().Value)
+            using (var db = new CalendarDbContext())
             {
                 var editedSeriesEventToDelete = db.EventSeries.First(x => x.Id == id);
                 db.EventSeries.Remove(editedSeriesEventToDelete);
                 db.SaveChanges();
+            }
+        }
+
+        public IEnumerable<EditedSeriesEvent> GetEditedSeriesEvent(DateTime @from, DateTime to)
+        {
+            using (var db = new CalendarDbContext())
+            {
+                var editedSeries = db.EditedSeriesEvents.Where(x => x.Start > from && x.Start < to);
+                return editedSeries;
             }
         }
     }

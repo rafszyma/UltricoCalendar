@@ -8,6 +8,8 @@ namespace UltricoCalendarCommon
 {
     public abstract class UltricoModule : Module
     {
+        public static IContainer IoCContainer;
+        
         private static readonly AutoResetEvent WaitHandle = new AutoResetEvent(false);
         
         public abstract void MigrateDatabase(IContainer container);

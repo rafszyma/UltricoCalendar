@@ -1,7 +1,11 @@
 using Akka.Actor;
 using Autofac;
 using UltricoCalendarCommon;
+using UltricoCalendarContracts.Interfaces;
+using UltricoCalendarContracts.Interfaces.Repository;
 using UltricoCalendarService.Actors;
+using UltricoCalendarService.Repositories;
+using UltricoCalendarService.Service;
 
 namespace UltricoCalendarService
 {
@@ -21,6 +25,17 @@ namespace UltricoCalendarService
         protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<CalendarActor>().PropertiesAutowired().AsSelf();
+            builder.RegisterType<CalendarService>().As<ISingleEventService>().PropertiesAutowired();
+            builder.RegisterType<CalendarService>().As<IEventSeriesService>().PropertiesAutowired();
+            builder.RegisterType<CalendarService>().As<IEditedSeriesEventService>().PropertiesAutowired();
+            builder.RegisterType<CalendarService>().As<IMetadataService>().PropertiesAutowired();
+            
+            builder.RegisterType<CalendarRepository>().As<ISingleEventRepository>().PropertiesAutowired();
+            builder.RegisterType<CalendarRepository>().As<IEventSeriesRepository>().PropertiesAutowired();
+            builder.RegisterType<CalendarRepository>().As<IEditedSeriesEventRepository>().PropertiesAutowired();
+            
+            
+            
             base.Load(builder);
         }
     }
