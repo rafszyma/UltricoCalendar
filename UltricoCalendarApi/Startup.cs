@@ -18,9 +18,12 @@ namespace UltricoCalendarApi
     public class Startup : UltricoApi
     {
         protected override string ApiName { get; } = "UltricoApi";
+
+        private const int ResolveOneTimeout = 1; 
         protected override void GetActor(ActorSystem system)
         {
-            ServiceActorRefs.CalendarServiceActor = system.ActorSelection("akka.tcp://ultrico-calendar@localhost:8081/user/calendar-actor").ResolveOne(TimeSpan.FromSeconds(1)).Result;
+            ServiceActorRefs.CalendarServiceActor = system.ActorSelection("akka.tcp://ultrico-calendar@localhost:8081/user/calendar-actor").ResolveOne(TimeSpan.FromSeconds(ResolveOneTimeout)).Result;
+            ServiceActorRefs.CalendarQueryActor = system.ActorSelection("akka.tcp://ultrico-calendar@localhost:8081/user/query-actor").ResolveOne(TimeSpan.FromSeconds(ResolveOneTimeout)).Result;
         }
 
         public Startup(IConfiguration configuration, IHostingEnvironment env) : base(configuration, env)

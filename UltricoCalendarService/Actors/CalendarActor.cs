@@ -20,7 +20,42 @@ namespace UltricoCalendarService.Actors
         
         public CalendarActor()
         {
-            Receive<Commands.AddEvent>(command =>
+            Receive<Commands.SingleEventCommands.Add>(command =>
+            {
+                Log.Information("Hey I got AddEvent command");
+            });
+            
+            Receive<Commands.SingleEventCommands.Update>(command =>
+            {
+                Log.Information("Hey I got AddEvent command");
+            });
+            
+            Receive<Commands.SingleEventCommands.Delete>(command =>
+            {
+                Log.Information("Hey I got AddEvent command");
+            });
+            
+            Receive<Commands.EventSeriesCommands.Add>(command =>
+            {
+                Log.Information("Hey I got AddEvent command");
+            });
+            
+            Receive<Commands.EventSeriesCommands.Update>(command =>
+            {
+                Log.Information("Hey I got AddEvent command");
+            });
+            
+            Receive<Commands.EventSeriesCommands.Delete>(command =>
+            {
+                Log.Information("Hey I got AddEvent command");
+            });
+            
+            Receive<Commands.EditEventFromSeriesCommands.EditEventFromSeries>(command =>
+            {
+                Log.Information("Hey I got AddEvent command");
+            });
+            
+            Receive<Commands.EditEventFromSeriesCommands.DeleteEventFromSeries>(command =>
             {
                 Log.Information("Hey I got AddEvent command");
             });

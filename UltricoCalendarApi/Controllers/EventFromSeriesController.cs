@@ -16,7 +16,7 @@ namespace UltricoCalendarApi.Controllers
         public async Task<IActionResult> GetEditedEventFromSeries(int id)
         {
             var query = new Queries.EditEventFromSeriesQueries.Get(id);
-            var result = ServiceActorRefs.CalendarServiceActor.Ask(query).GetAwaiter().GetResult();
+            var result = ServiceActorRefs.CalendarQueryActor.Ask(query).GetAwaiter().GetResult();
             return Ok(result);
         }
         

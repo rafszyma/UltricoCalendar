@@ -51,7 +51,7 @@ namespace UltricoCalendarContracts
 
         public class EditEventFromSeriesCommands
         {
-            public class EditEventFromSeries()
+            public class EditEventFromSeries
             {
                 public ScheduleEvent EventData { get; }
                 
@@ -61,16 +61,6 @@ namespace UltricoCalendarContracts
                 {
                     EventData = eventData;
                     SeriesId = seriesId;
-                }
-            }
-
-            public class GetEditedEvent
-            {
-                public int Id { get; }
-
-                public GetEditedEvent(int id)
-                {
-                    Id = id;
                 }
             }
 

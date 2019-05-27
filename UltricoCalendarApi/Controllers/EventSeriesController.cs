@@ -14,7 +14,7 @@ namespace UltricoCalendarApi.Controllers
         public async Task<IActionResult> GetEventSeries(int id)
         {
             var query = new Queries.EventSeriesQueries.Get(id);
-            var result = ServiceActorRefs.CalendarServiceActor.Ask(query).GetAwaiter().GetResult();
+            var result = ServiceActorRefs.CalendarQueryActor.Ask(query).GetAwaiter().GetResult();
             return Ok(result);
         }
         

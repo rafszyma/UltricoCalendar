@@ -15,6 +15,7 @@ namespace UltricoCalendarService
         public override void CreateActors(ActorSystem system)
         {
             CalendarActor.Create(system);
+            QueryActor.Create(system);
         }
 
         protected override void Load(ContainerBuilder builder)
