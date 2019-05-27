@@ -1,22 +1,29 @@
 using System;
 using UltricoCalendarContracts.Entities;
 using UltricoCalendarContracts.Interfaces;
+using UltricoCalendarContracts.Interfaces.Repository;
+using UltricoCalendarContracts.Models;
 
 namespace UltricoCalendarService.Service
 {
     public class CalendarService : ISingleEventService, IEventSeriesService, IEditedSeriesEventService
     {
-        public void AddEvent(SingleEvent newEvent)
+        public ISingleEventRepository SingleEventRepository { get; }
+        
+        public IEventSeriesRepository EventSeriesRepository { get; }
+        
+        public IEditedSeriesEventRepository EditedSeriesEventRepository { get; }
+        
+        public void AddEvent(ScheduleEvent newEvent)
+        {
+        }
+
+        public ScheduleEvent GetEvent(int id)
         {
             throw new NotImplementedException();
         }
 
-        public SingleEvent GetEvent(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void EditEvent(int id, SingleEvent newModel)
+        public void EditEvent(int id, ScheduleEvent newModel)
         {
             throw new NotImplementedException();
         }
@@ -26,17 +33,22 @@ namespace UltricoCalendarService.Service
             throw new NotImplementedException();
         }
 
-        public void AddEventSeries(EventSeries newEvent)
+        public void AddEventSeries(ScheduleEventSeries newEvent)
         {
             throw new NotImplementedException();
         }
 
-        public EventSeries GetEventSeries(int id)
+        public ScheduleEventSeries GetEventSeries(int id)
         {
             throw new NotImplementedException();
         }
 
-        void IEventSeriesService.EditEventSeries(int id, EventSeries newModel)
+        public void EditEventSeries(int id, ScheduleEventSeries newModel)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void EditEventFromSeries(int id, ScheduleEvent newModel)
         {
             throw new NotImplementedException();
         }
@@ -52,11 +64,6 @@ namespace UltricoCalendarService.Service
         }
 
         public void DeleteEventSeries(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        void IEditedSeriesEventService.EditEventSeries(int id, EventSeries newModel)
         {
             throw new NotImplementedException();
         }

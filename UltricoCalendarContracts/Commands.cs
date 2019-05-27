@@ -8,28 +8,28 @@ namespace UltricoCalendarContracts
 {
     public class Commands
     {
-        public abstract class EventCommands<T> where T : ScheduleEvent
+        public abstract class EventCommands<T> where T : BaseEvent
         {
             public class Add
             {
-                public T EventData { get; }
+                public T Data { get; }
 
-                public Add(T eventData)
+                public Add(T data)
                 {
-                    EventData = eventData;
+                    Data = data;
                 }
             }
             
             public class Update
             {
-                public T EventData { get; }
+                public T Data { get; }
                 
                 public int Id { get;  }
 
-                public Update(int id, T eventData)
+                public Update(int id, T data)
                 {
                     Id = id;
-                    EventData = eventData;
+                    Data = data;
                 }
             }
             

@@ -22,42 +22,42 @@ namespace UltricoCalendarService.Actors
         {
             Receive<Commands.SingleEventCommands.Add>(command =>
             {
-                Log.Information("Hey I got AddEvent command");
+                SingleEventService.AddEvent(command.Data);
             });
             
             Receive<Commands.SingleEventCommands.Update>(command =>
             {
-                Log.Information("Hey I got AddEvent command");
+                SingleEventService.EditEvent(command.Id, command.Data);
             });
             
             Receive<Commands.SingleEventCommands.Delete>(command =>
             {
-                Log.Information("Hey I got AddEvent command");
+                SingleEventService.DeleteEvent(command.Id);
             });
             
             Receive<Commands.EventSeriesCommands.Add>(command =>
             {
-                Log.Information("Hey I got AddEvent command");
+                EventSeriesService.AddEventSeries(command.Data);
             });
             
             Receive<Commands.EventSeriesCommands.Update>(command =>
             {
-                Log.Information("Hey I got AddEvent command");
+                EventSeriesService.EditEventSeries(command.Id, command.Data);
             });
             
             Receive<Commands.EventSeriesCommands.Delete>(command =>
             {
-                Log.Information("Hey I got AddEvent command");
+                EventSeriesService.DeleteEventSeries(command.Id);
             });
             
             Receive<Commands.EditEventFromSeriesCommands.EditEventFromSeries>(command =>
             {
-                Log.Information("Hey I got AddEvent command");
+                EditedSeriesEventService.EditEventFromSeries(command.SeriesId, command.EventData);
             });
             
             Receive<Commands.EditEventFromSeriesCommands.DeleteEventFromSeries>(command =>
             {
-                Log.Information("Hey I got AddEvent command");
+                EditedSeriesEventService.DeleteEventFromSeries(command.SeriesId, command.DateTime);
             });
         }
         

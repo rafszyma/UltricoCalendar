@@ -1,14 +1,15 @@
 using UltricoCalendarContracts.Entities;
+using UltricoCalendarContracts.Models;
 
 namespace UltricoCalendarContracts.Interfaces
 {
     public interface IEventSeriesService
     {
-        void AddEventSeries(EventSeries newEvent);
+        void AddEventSeries(ScheduleEventSeries newEvent);
         
-        EventSeries GetEventSeries(int id);
+        ScheduleEventSeries GetEventSeries(int id);
 
-        void EditEventSeries(int id, EventSeries newModel);
+        void EditEventSeries(int id, ScheduleEventSeries newModel);
 
         void DeleteEventSeries(int id);
     }

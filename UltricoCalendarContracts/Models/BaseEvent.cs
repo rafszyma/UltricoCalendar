@@ -7,21 +7,28 @@ using UltricoCalendarContracts.Interfaces;
 
 namespace UltricoCalendarContracts.Models
 {
-    public class ScheduleEvent : BaseEvent 
+    public abstract class BaseEvent : ICalendarEvent
     {
-
-        public override CalendarEvent ToEntity()
+        public string Title { get; set; }
+        
+        public string Description { get; set; }
+        
+        public DateTime Start { get; set; }
+        
+        public TimeSpan Duration { get; set; }
+        
+        public List<MailAddress> MailAddresses { get; set; }
+        
+        public EventMetadata ToMetadata()
         {
-            return new SingleEvent
+            return new EventMetadata
             {
                 Title = Title,
-                Description = Description,
                 Start = Start,
                 Duration = Duration == TimeSpan.Zero ? EventDuration.FullDayDuration() : EventDuration.TimeSpanDuration(Duration),
-                MailAddresses = MailAddresses
             };
         }
 
-        
+        public abstract CalendarEvent ToEntity();
     }
 }

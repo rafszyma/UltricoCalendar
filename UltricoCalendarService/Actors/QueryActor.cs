@@ -1,8 +1,12 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Akka.Actor;
 using Autofac.Features.OwnedInstances;
 using Serilog;
 using UltricoCalendarContracts;
+using UltricoCalendarContracts.Interfaces.Repository;
+using UltricoCalendarContracts.Models;
 using UltricoCalendarService.Persistance;
 
 namespace UltricoCalendarService.Actors
@@ -11,28 +15,38 @@ namespace UltricoCalendarService.Actors
     {
         public static Props Props => Props.Create(() => new QueryActor());
         
-        public Func<Owned<CalendarDbContext>> Factory { get; set; }
+        public ISingleEventRepository SingleEventRepository { get; }
+        
+        public IEventSeriesRepository EventSeriesRepository { get; }
+        
+        public IEditedSeriesEventRepository EditedSeriesEventRepository { get; }
         
         public QueryActor()
         {
             Receive<Queries.GetEventMetadata>(query =>
             {
-                Log.Information("Hey I got AddEvent command");
+                var singleEvents = SingleEventRepository.GetSingleEvents(query.From, query.To).ToList();
+                var eventSeries = EventSeriesRepository.GetEventSeries(query.From, query.To).ToList();
+                
+                // TODO return value
             });
             
             Receive<Queries.SingleEventQueries.Get>(query =>
             {
-                Log.Information("Hey I got AddEvent command");
+                SingleEventRepository.GetSingleEvent(query.Id);
+                // TODO Return value
             });
             
             Receive<Queries.EventSeriesQueries.Get>(query =>
             {
-                Log.Information("Hey I got AddEvent command");
+                EventSeriesRepository.GetEventSeries(query.Id);
+                // TODO Return value
             });
             
             Receive<Queries.EditEventFromSeriesQueries.Get>(query =>
             {
-                Log.Information("Hey I got AddEvent command");
+                EditedSeriesEventRepository.GetEditedSeriesEvent(query.Id);
+                // TODO Return value
             });
         }
         
