@@ -11,6 +11,6 @@ namespace UltricoCalendarContracts.Interfaces.Repository
         EventSeries GetEventSeries(int id);
         void UpdateEventSeries(EventSeries editedEventSeries);
         void DeleteEventSeries(int id);
-        IEnumerable<EventSeries> GetEventSeries(DateTime from, DateTime to);
+        List<EventSeries> GetEventSeries(DateTime from, DateTime to);
     }
 }

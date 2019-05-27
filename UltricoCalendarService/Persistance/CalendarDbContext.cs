@@ -65,7 +65,7 @@ namespace UltricoCalendarService.Persistance
             entity.Property(x => x.Duration).HasConversion(d => d.ToJson(), d => EventDuration.FromJson(d)).IsRequired();
             entity.Property(x => x.RepeatPeriod).IsRequired();
             entity.HasMany(x => x.EditedEvents).WithOne(x => x.EventSeries);
-            entity.Property(x => x.Finish).HasConversion(v => v.ToString(), v => FinishClass.FromJson(v)).IsRequired();
+            entity.Property(x => x.Finish).HasConversion(v => v.ToJson(), v => FinishClass.FromJson(v)).IsRequired();
             entity.Property(x => x.MailAddresses)
                 .HasConversion(ma => ListMapper.ToJson(ma), ma => ListMapper.FromJson(ma));
             entity.Property(x => x.DeletedOccurrences)
@@ -75,7 +75,7 @@ namespace UltricoCalendarService.Persistance
         private static DbContextOptions<CalendarDbContext> GenerateOptions()
         {
             var optionsBuilder = new DbContextOptionsBuilder<CalendarDbContext>();
-            return optionsBuilder.UseInMemoryDatabase("myDb").UseLazyLoadingProxies().Options;
+            return optionsBuilder.UseInMemoryDatabase("myDb").Options;
         }
     }
 }

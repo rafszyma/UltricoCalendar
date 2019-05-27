@@ -26,15 +26,15 @@ namespace UltricoCalendarApi.Controllers
             return Ok();
         }
         
-        [HttpPost("edit")]
-        public async Task<IActionResult> EditEvent([FromQuery]int eventId, [FromBody] ScheduleEventModel scheduleEventModel)
+        [HttpPost("edit/{id}")]
+        public async Task<IActionResult> EditEvent(int id, [FromBody] ScheduleEventModel scheduleEventModel)
         {
-            var command = new Commands.SingleEventCommands.Update(eventId, scheduleEventModel);
+            var command = new Commands.SingleEventCommands.Update(id, scheduleEventModel);
             ServiceActorRefs.CalendarServiceActor.Tell(command);
             return Ok();
         }
         
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSingleEvent(int id)
         {
             var command = new Commands.SingleEventCommands.Delete(id);

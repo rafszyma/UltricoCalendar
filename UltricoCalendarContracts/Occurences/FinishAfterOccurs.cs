@@ -6,22 +6,23 @@ namespace UltricoCalendarContracts
 {
     public class FinishAfterOccurs : FinishClass
     {
-        public int? TimesToOccur { get; private set; }
+        public int MaxTimesToOccur { get; }
 
-        public FinishAfterOccurs(int timesToOccur)
+        public FinishAfterOccurs(int maxTimesToOccur)
         {
-            TimesToOccur = timesToOccur;
+            MaxTimesToOccur = maxTimesToOccur;
         }
 
         public override IEnumerable<DateTime> Occur(RepeatPeriod repeatPeriod, DateTime repeatFrom, DateTime repeatTill)
         {
             var latestDate = repeatFrom;
             var occurrences = new List<DateTime>();
-            while (TimesToOccur > 0 && latestDate <= repeatTill)
+            var timesToOccur = MaxTimesToOccur;
+            while (timesToOccur > 0 && latestDate <= repeatTill)
             {
                 occurrences.Add(latestDate);
                 latestDate = latestDate.Add(repeatPeriod.NextOccurence(latestDate).Subtract(latestDate));
-                TimesToOccur--;
+                timesToOccur--;
             }
 
             return occurrences;

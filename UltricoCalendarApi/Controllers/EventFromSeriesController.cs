@@ -28,8 +28,8 @@ namespace UltricoCalendarApi.Controllers
             return Ok();
         }
         
-        [HttpDelete("{seriesId}/{date}")]
-        public async Task<IActionResult> DeleteEventFromSeries(int seriesId, DateTime dateTime)
+        [HttpDelete("{seriesId}")]
+        public async Task<IActionResult> DeleteEventFromSeries(int seriesId, [FromQuery] DateTime dateTime)
         {
             var command = new Commands.EditEventFromSeriesCommands.DeleteEventFromSeries(seriesId, dateTime);
             ServiceActorRefs.CalendarServiceActor.Tell(command);

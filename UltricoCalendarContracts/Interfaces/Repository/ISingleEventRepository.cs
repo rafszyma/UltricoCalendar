@@ -11,6 +11,6 @@ namespace UltricoCalendarContracts.Interfaces.Repository
         SingleEvent GetSingleEvent(int id);
         void UpdateSingleEvent(SingleEvent editedSingleEvent);
         void DeleteSingleEvent(int id);
-        IEnumerable<SingleEvent> GetSingleEvents(DateTime from, DateTime to);
+        List<SingleEvent> GetSingleEvents(DateTime from, DateTime to);
     }
 }

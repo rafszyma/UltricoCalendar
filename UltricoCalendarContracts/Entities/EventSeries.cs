@@ -11,6 +11,11 @@ namespace UltricoCalendarContracts.Entities
 {
     public class EventSeries : CalendarEvent, ICalendarDisplayable
     {
+        public EventSeries()
+        {
+            DeletedOccurrences = new List<DateTime>();
+        }
+        
         public RepeatPeriod RepeatPeriod { get; set; }
         
         public FinishClass Finish { get; set; }
@@ -21,7 +26,7 @@ namespace UltricoCalendarContracts.Entities
         
         public EventMetadata ToMetadata(DateTime @from, DateTime to)
         {
-            var allEventOccurrences = Finish.Occur(RepeatPeriod, from, to).ToList();
+            var allEventOccurrences = Finish.Occur(RepeatPeriod, Start, to).ToList();
             allEventOccurrences.RemoveAll(x => DeletedOccurrences.Contains(x));
             allEventOccurrences.RemoveAll(x => EditedEvents.Select(y => y.OldStartDate).Contains(x));
             if (Duration.EventDurationType == DurationType.FullDay)
@@ -48,8 +53,8 @@ namespace UltricoCalendarContracts.Entities
                 MailAddresses = MailAddresses,
                 RepeatPeriod = RepeatPeriod,
                 FinishEnum = Finish.GetFinishValue(),
-                OccursAmount = Finish.GetFinishValue() == FinishEnum.AfterOccurs ? ((FinishAfterOccurs)Finish).TimesToOccur : null,
-                FinishDate = Finish.GetFinishValue() == FinishEnum.AfterDate ? ((FinishAfterDate)Finish).TimeWhenFinished : null
+                OccursAmount = Finish.GetFinishValue() == FinishEnum.AfterOccurs ? (int?)((FinishAfterOccurs)Finish).MaxTimesToOccur : null,
+                FinishDate = Finish.GetFinishValue() == FinishEnum.AfterDate ? (DateTime?)((FinishAfterDate)Finish).TimeWhenFinished : null
             };
         }
     }

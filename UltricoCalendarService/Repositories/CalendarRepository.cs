@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Akka.IO;
 using Autofac.Features.OwnedInstances;
+using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Swagger;
 using UltricoCalendarContracts.Entities;
 using UltricoCalendarContracts.Interfaces;
@@ -49,12 +51,12 @@ namespace UltricoCalendarService.Repositories
             }
         }
 
-        public IEnumerable<SingleEvent> GetSingleEvents(DateTime @from, DateTime to)
+        public List<SingleEvent> GetSingleEvents(DateTime @from, DateTime to)
         {
             using (var db = new CalendarDbContext())
             {
                 var singleEvents = db.SingleEvents.Where(x => (x.Start > @from && x.Start < to));
-                return singleEvents;
+                return singleEvents.ToList();
             }
         }
 
@@ -68,11 +70,11 @@ namespace UltricoCalendarService.Repositories
             }
         }
 
-        public IEnumerable<EventSeries> GetEventSeries(DateTime @from, DateTime to)
+        public List<EventSeries> GetEventSeries(DateTime @from, DateTime to)
         {
             using (var db = new CalendarDbContext())
             {
-                var eventSeries = db.EventSeries.Where(x => x.Start < to);
+                var eventSeries = db.EventSeries.Where(x => x.Start < to).Include(x => x.EditedEvents).ToList();
                 return eventSeries;
             }
         }
@@ -90,7 +92,7 @@ namespace UltricoCalendarService.Repositories
         {
             using (var db = new CalendarDbContext())
             {
-                var eventSeries = db.EventSeries.First(x => x.Id == id);
+                var eventSeries = db.EventSeries.Include(x => x.EditedEvents).First(x => x.Id == id);
                 return eventSeries;
             }
         }
@@ -100,6 +102,7 @@ namespace UltricoCalendarService.Repositories
             using (var db = new CalendarDbContext())
             {
                 db.EventSeries.Update(editedEventSeries);
+                db.SaveChanges();
             }
         }
 
@@ -125,6 +128,7 @@ namespace UltricoCalendarService.Repositories
             using (var db = new CalendarDbContext())
             {
                 db.EditedSeriesEvents.Update(editedSeriesEvent);
+                db.SaveChanges();
             }
         }
 
@@ -138,12 +142,12 @@ namespace UltricoCalendarService.Repositories
             }
         }
 
-        public IEnumerable<EditedSeriesEvent> GetEditedSeriesEvent(DateTime @from, DateTime to)
+        public List<EditedSeriesEvent> GetEditedSeriesEvent(DateTime @from, DateTime to)
         {
             using (var db = new CalendarDbContext())
             {
                 var editedSeries = db.EditedSeriesEvents.Where(x => x.Start > from && x.Start < to);
-                return editedSeries;
+                return editedSeries.ToList();
             }
         }
     }

@@ -68,7 +68,6 @@ namespace UltricoCalendarService.Service
             var editedEvent = (EditedSeriesEvent) newEventModel.ToEntity();
             series.EditedEvents.Add(editedEvent);
             _eventSeriesRepository.UpdateEventSeries(series);
-            _editedSeriesEventRepository.AddEditedSeriesEvent(editedEvent);
         }
 
         public ICalendarEvent GetEditedEventFromSeries(int id)
@@ -87,13 +86,9 @@ namespace UltricoCalendarService.Service
         public IEnumerable<EventMetadata> GetMetadata(DateTime @from, DateTime to)
         {
             var result = new List<EventMetadata>();
-            var singleEvents = _singleEventRepository.GetSingleEvents(from, to);
-            var eventSeries = _eventSeriesRepository.GetEventSeries(from, to);
-            var editedEvents = _editedSeriesEventRepository.GetEditedSeriesEvent(from, to);
-            
-            result.AddRange(singleEvents.Select(x => x.ToMetadata(from, to)));
-            result.AddRange(eventSeries.Select(x => x.ToMetadata(from, to)));
-            result.AddRange(editedEvents.Select(x => x.ToMetadata(from, to)));
+            result.AddRange(_singleEventRepository.GetSingleEvents(from, to).Select(x => x.ToMetadata(from, to)));
+            result.AddRange(_eventSeriesRepository.GetEventSeries(from, to).Select(x => x.ToMetadata(from, to)));
+            result.AddRange(_editedSeriesEventRepository.GetEditedSeriesEvent(from, to).Select(x => x.ToMetadata(from, to)));
 
             return result;
         }
