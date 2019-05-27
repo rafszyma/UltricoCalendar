@@ -1,18 +1,21 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Akka.Actor;
 using Microsoft.AspNetCore.Mvc;
 using UltricoCalendarCommon;
 using UltricoCalendarContracts;
+using UltricoCalendarContracts.Models;
 
 namespace UltricoCalendarApi.Controllers
 {
     public class CalendarController : UltricoController
     {
-        [HttpGet("hubs")]
-        public async Task<IActionResult> GetAllHubs()
+        [HttpGet("getEventsMetadata")]
+        public async Task<IActionResult> GetEvents([FromQuery] DateTime from, [FromQuery] DateTime to)
         {
-            AkkaSystem.ActorSystem.ActorSelection("akka.tcp://ultrico-calendar@localhost:8081/user/calendar-actor").Tell(new Commands.AddEvent());
-            return Ok();
+            var query = new Queries.GetEventMetadata(from, to);
+            var result = ServiceActorRefs.CalendarServiceActor.Ask(query).GetAwaiter().GetResult();
+            return Ok(result);
         }
     }
 }

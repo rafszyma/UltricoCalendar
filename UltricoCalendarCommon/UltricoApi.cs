@@ -22,6 +22,8 @@ namespace UltricoCalendarCommon
         
         protected readonly UltricoApiSettings ApiSettings = new UltricoApiSettings();
 
+        protected abstract void GetActor(ActorSystem system);
+
         protected UltricoApi(IConfiguration args, IHostingEnvironment env)
         {
             Console.Title = ApiName;
@@ -45,7 +47,7 @@ namespace UltricoCalendarCommon
             Log.Information($"Running {ApiName}");
         }
         
-        protected ActorSystem RunActorSystem(){
+        protected void RunActorSystem(){
             var config = ConfigurationFactory.ParseString(@"
 akka {  
     actor {
@@ -60,7 +62,7 @@ akka {
 }");
             // Akka
 
-            return ActorSystem.Create("ultrico-calendar", config);
+            GetActor(ActorSystem.Create("ultrico-calendar", config));
         }
         
         protected void ConfigureSwagger(IServiceCollection services)

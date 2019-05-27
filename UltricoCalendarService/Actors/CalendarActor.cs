@@ -4,11 +4,18 @@ using Akka.DI.Core;
 using Akka.Routing;
 using Serilog;
 using UltricoCalendarContracts;
+using UltricoCalendarContracts.Interfaces;
 
 namespace UltricoCalendarService.Actors
 {
     public class CalendarActor : ReceiveActor
     {
+        public ISingleEventService SingleEventService;
+
+        public IEventSeriesService EventSeriesService;
+
+        public IEditedSeriesEventService EditedSeriesEventService;
+        
         public static Props Props => Props.Create(() => new CalendarActor());
         
         public CalendarActor()

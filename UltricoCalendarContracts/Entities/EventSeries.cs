@@ -2,17 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Net.Mail;
 using UltricoCalendarContracts.Enums;
+using UltricoCalendarContracts.Extensions;
 
 namespace UltricoCalendarContracts.Entities
 {
-    public class EventSeries<T> : CalendarEvent where T : FinishClass
+    public class EventSeries : CalendarEvent
     {
-        public string Title { get; set; }
-        public string Description { get; set; }
         public RepeatPeriod RepeatEvery { get; set; }
-        public DateTime Start { get; set; }
-        public TimeSpan Duration { get; set; }
-        public T Finish { get; set; }
-        public List<MailAddress> MailAddresses { get; set; }
+        
+        public FinishClass Finish { get; set; }
+        
+        public List<EditedSeriesEvent> EditedEvents { get; set; }
+        
+        public List<DateTime> DeletedOccurrences { get; set; }
     }
 }

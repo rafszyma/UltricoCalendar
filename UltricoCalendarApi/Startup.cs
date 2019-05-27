@@ -18,6 +18,11 @@ namespace UltricoCalendarApi
     public class Startup : UltricoApi
     {
         protected override string ApiName { get; } = "UltricoApi";
+        protected override void GetActor(ActorSystem system)
+        {
+            ServiceActorRefs.CalendarServiceActor = system.ActorSelection("akka.tcp://ultrico-calendar@localhost:8081/user/calendar-actor").ResolveOne(TimeSpan.FromSeconds(1)).Result;
+        }
+
         public Startup(IConfiguration configuration, IHostingEnvironment env) : base(configuration, env)
         {
         }
@@ -25,8 +30,7 @@ namespace UltricoCalendarApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            AkkaSystem.ActorSystem = RunActorSystem();
-
+            RunActorSystem();
             services.AddTransient(provider => ApiSettings);
             
             ConfigureSwagger(services);

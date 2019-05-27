@@ -14,27 +14,25 @@ namespace UltricoCalendarService.Persistance
         
         public DbSet<SingleEvent> SingleEvents { get; set; }
         
-        public DbSet<EventSeries<FinishAfterDate>> DateEventSeries { get; set; }
-        
-        public DbSet<EventSeries<FinishAfterOccurs>> CountEventSeries { get; set; }
-        
-        public DbSet<EventSeries<NeverFinish>> NeverFinishEventSeries { get; set; }
+        public DbSet<EventSeries> EventSeries { get; set; }
         
         public DbSet<EditedSeriesEvent> EditedSeriesEvents { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             MapSingleEvents(modelBuilder);
-            MapDateEventSeries(modelBuilder);
-            MapCountEventSeries(modelBuilder);
-            MapNeverFinishEventSeries(modelBuilder);
+            MapEventSeries(modelBuilder);
             MapEditedSeriesEvents(modelBuilder);
         }
 
         private void MapEditedSeriesEvents(ModelBuilder modelBuilder)
         {
             var entity = modelBuilder.Entity<EditedSeriesEvent>();
-            // TODO FINISH IT
+            entity.HasKey(x => x.Id);
+            entity.Property(x => x.Title).IsRequired();
+            entity.Property(x => x.Start).IsRequired();
+            entity.Property(x => x.Duration).IsRequired();
+            entity.Property(x => x.EventSeriesId).IsRequired();
         }
 
         private void MapSingleEvents(ModelBuilder modelBuilder)
@@ -46,40 +44,16 @@ namespace UltricoCalendarService.Persistance
             entity.Property(x => x.Duration).IsRequired();
         }
         
-        private void MapDateEventSeries(ModelBuilder modelBuilder)
+        private void MapEventSeries(ModelBuilder modelBuilder)
         {
-            var entity = modelBuilder.Entity<EventSeries<FinishAfterDate>>();
+            var entity = modelBuilder.Entity<EventSeries>();
             entity.HasKey(x => x.Id);
             entity.Property(x => x.Title).IsRequired();
             entity.Property(x => x.Start).IsRequired();
             entity.Property(x => x.Duration).IsRequired();
             entity.Property(x => x.RepeatEvery).IsRequired();
-            // TODO Add serialization here
+            entity.HasMany(x => x.EditedEvents).WithOne(x => x.EventSeries);
             entity.Property(x => x.Finish).IsRequired();
         }
-
-        private void MapCountEventSeries(ModelBuilder modelBuilder)
-        {
-            var entity = modelBuilder.Entity<EventSeries<FinishAfterOccurs>>();
-            entity.HasKey(x => x.Id);
-            entity.Property(x => x.Title).IsRequired();
-            entity.Property(x => x.Start).IsRequired();
-            entity.Property(x => x.Duration).IsRequired();
-            entity.Property(x => x.RepeatEvery).IsRequired();
-            // TODO Add serialization here
-            entity.Property(x => x.Finish).IsRequired();
-        }
-
-        private void MapNeverFinishEventSeries(ModelBuilder modelBuilder)
-        {
-            var entity = modelBuilder.Entity<EventSeries<NeverFinish>>();
-            entity.HasKey(x => x.Id);
-            entity.Property(x => x.Title).IsRequired();
-            entity.Property(x => x.Start).IsRequired();
-            entity.Property(x => x.Duration).IsRequired();
-            entity.Property(x => x.RepeatEvery).IsRequired();
-            entity.Property(x => x.Finish).IsRequired();
-        }
-        
     }
 }
