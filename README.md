@@ -10,3 +10,4 @@ TODO:
 7. Rethink encapsulation
 8. Test EventFromSeries CRUD operations.
 9. Return Ids for easier checks
+10. Change Enum JSON serialization to string
