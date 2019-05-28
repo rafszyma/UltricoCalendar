@@ -40,7 +40,6 @@ namespace UltricoCalendarCommon
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.Console()
-                .Enrich.WithProperty("Diag.Environment", ApiSettings.LogEnvironment)
                 .Enrich.WithProperty("Diag.Application", ApiName)
                 .CreateLogger();
 

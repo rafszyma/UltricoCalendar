@@ -14,7 +14,6 @@ namespace UltricoCalendarService
     {
         public override void MigrateDatabase(IContainer container)
         {
-            
         }
 
         public override void CreateActors(ActorSystem system)

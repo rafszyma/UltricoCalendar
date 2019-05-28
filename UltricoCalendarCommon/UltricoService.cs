@@ -56,11 +56,10 @@ namespace UltricoCalendarCommon
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.Console()
-                .Enrich.WithProperty("Diag.Environment", _serviceSettings.LogEnvironment)
                 .Enrich.WithProperty("Diag.Application", _serviceName)
                 .CreateLogger();
             
-            Log.Information($"Using Serilog logger for {_serviceName} using {_serviceSettings.LogEnvironment} property");
+            Log.Information($"Using Serilog logger for {_serviceName}");
         }
 
         private void SetupIoC()
