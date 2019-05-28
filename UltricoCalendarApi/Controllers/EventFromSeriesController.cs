@@ -9,29 +9,45 @@ using UltricoCalendarContracts.Models;
 namespace UltricoCalendarApi.Controllers
 {
     
-    [Route("EventFromSeries")]
+    [Route("eventFromSeries")]
     public class EventFromSeriesController : UltricoController
     {
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetEditedEventFromSeries(int id)
+        public async Task<IActionResult> GetEventFromSeries(int id)
         {
-            var query = new Queries.EditEventFromSeriesQueries.Get(id);
+            var query = new Queries.EventFromSeriesQueries.Get(id);
             var result = ServiceActorRefs.CalendarQueryActor.Ask(query).GetAwaiter().GetResult();
             return Ok(result);
         }
         
-        [HttpPost("editEventFromSeries/{seriesId}")]
-        public async Task<IActionResult> EditEventFromSeries([FromBody] EventFromSeriesModel eventFromSeriesModel, int seriesId)
+        [HttpPost("edit/{id}")]
+        public async Task<IActionResult> EditEventFromSeries(int id, [FromBody] EventFromSeriesModel eventFromSeriesModel)
         {
-            var command = new Commands.EditEventFromSeriesCommands.EditEventFromSeries(eventFromSeriesModel, seriesId);
+            var command = new Commands.EventFromSeriesCommands.Update(id, eventFromSeriesModel);
+            ServiceActorRefs.CalendarServiceActor.Tell(command);
+            return Ok();
+        }
+        
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteEventFromSeries(int id)
+        {
+            var command = new Commands.EventFromSeriesCommands.Delete(id);
+            ServiceActorRefs.CalendarServiceActor.Tell(command);
+            return Ok();
+        }
+        
+        [HttpPost("editEventFromSeries/{seriesId}")]
+        public async Task<IActionResult> ExcludeEventFromSeries([FromBody] EventFromSeriesModel eventFromSeriesModel, int seriesId)
+        {
+            var command = new Commands.EditEventFromSeriesCommands.ExcludeEventFromSeries(eventFromSeriesModel, seriesId);
             ServiceActorRefs.CalendarServiceActor.Tell(command);
             return Ok();
         }
         
         [HttpDelete("{seriesId}")]
-        public async Task<IActionResult> DeleteEventFromSeries(int seriesId, [FromQuery] DateTime dateTime)
+        public async Task<IActionResult> DeleteEventOccurenceFromSeries(int seriesId, [FromQuery] DateTime dateTime)
         {
-            var command = new Commands.EditEventFromSeriesCommands.DeleteEventFromSeries(seriesId, dateTime);
+            var command = new Commands.EditEventFromSeriesCommands.DeleteEventOccurenceFromSeries(seriesId, dateTime);
             ServiceActorRefs.CalendarServiceActor.Tell(command);
             return Ok();
         }

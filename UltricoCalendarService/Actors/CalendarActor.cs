@@ -20,7 +20,7 @@ namespace UltricoCalendarService.Actors
 
         private readonly IEventSeriesService _eventSeriesService = UltricoModule.IoCContainer.Resolve<IEventSeriesService>();
 
-        private readonly IEditedSeriesEventService _editedSeriesEventService = UltricoModule.IoCContainer.Resolve<IEditedSeriesEventService>();
+        private readonly IEventFromSeriesService _eventFromSeriesService = UltricoModule.IoCContainer.Resolve<IEventFromSeriesService>();
 
         public CalendarActor()
         {
@@ -54,14 +54,24 @@ namespace UltricoCalendarService.Actors
                 _eventSeriesService.DeleteEventSeries(command.Id);
             });
             
-            Receive<Commands.EditEventFromSeriesCommands.EditEventFromSeries>(command =>
+            Receive<Commands.EditEventFromSeriesCommands.ExcludeEventFromSeries>(command =>
             {
-                _editedSeriesEventService.EditEventFromSeries(command.SeriesId, command.EventFromSeriesModelData);
+                _eventFromSeriesService.ExcludeEventFromSeries(command.SeriesId, command.EventFromSeriesModelData);
             });
             
-            Receive<Commands.EditEventFromSeriesCommands.DeleteEventFromSeries>(command =>
+            Receive<Commands.EditEventFromSeriesCommands.DeleteEventOccurenceFromSeries>(command =>
             {
-                _editedSeriesEventService.DeleteEventFromSeries(command.SeriesId, command.DateTime);
+                _eventFromSeriesService.DeleteEventOccurenceFromSeries(command.SeriesId, command.DateTime);
+            });
+            
+            Receive<Commands.EventFromSeriesCommands.Update>(command =>
+            {
+                _eventFromSeriesService.EditEventFromSeries(command.Id, command.Data);
+            });
+            
+            Receive<Commands.EventFromSeriesCommands.Delete>(command =>
+            {
+                _eventFromSeriesService.DeleteEventFromSeries(command.Id);
             });
         }
         

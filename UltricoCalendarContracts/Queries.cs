@@ -35,6 +35,6 @@ namespace UltricoCalendarContracts
         
         public class EventSeriesQueries : EventQueries<EventSeries>{}
         
-        public class EditEventFromSeriesQueries : EventQueries<EventFromSeries>{}
+        public class EventFromSeriesQueries : EventQueries<EventFromSeries>{}
     }
 }

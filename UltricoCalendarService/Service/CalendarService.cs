@@ -11,7 +11,7 @@ using UltricoCalendarContracts.Models;
 
 namespace UltricoCalendarService.Service
 {
-    public class CalendarService : ISingleEventService, IEventSeriesService, IEditedSeriesEventService, IMetadataService
+    public class CalendarService : ISingleEventService, IEventSeriesService, IEventFromSeriesService, IMetadataService
     {
         private readonly ISingleEventRepository _singleEventRepository = UltricoModule.IoCContainer.Resolve<ISingleEventRepository>();
         
@@ -63,7 +63,7 @@ namespace UltricoCalendarService.Service
             _eventSeriesRepository.DeleteEventSeries(id);
         }
 
-        public void EditEventFromSeries(int seriesId, ICalendarEvent newEventModel)
+        public void ExcludeEventFromSeries(int seriesId, ICalendarEvent newEventModel)
         {
             var series = _eventSeriesRepository.GetEventSeries(seriesId);
             var editedEvent = (EventFromSeries) newEventModel.ToEntity();
@@ -76,7 +76,19 @@ namespace UltricoCalendarService.Service
             return (EventFromSeriesModel) _eventFromSeriesRepository.GetEventFromSeries(id).ToBaseModel();
         }
 
-        public void DeleteEventFromSeries(int seriesId, DateTime dateTime)
+        public void EditEventFromSeries(int id, ICalendarEvent newEventModel)
+        {
+            var entity = (EventFromSeries) newEventModel.ToEntity();
+            entity.Id = id;
+            _eventFromSeriesRepository.UpdateEventFromSeries(entity);
+        }
+
+        public void DeleteEventFromSeries(int id)
+        {
+            _eventFromSeriesRepository.DeleteEventFromSeries(id);
+        }
+
+        public void DeleteEventOccurenceFromSeries(int seriesId, DateTime dateTime)
         {
             var series = _eventSeriesRepository.GetEventSeries(seriesId);
             series.DeletedOccurrences.Add(dateTime);

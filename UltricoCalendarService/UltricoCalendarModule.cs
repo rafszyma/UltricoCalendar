@@ -27,14 +27,12 @@ namespace UltricoCalendarService
             builder.RegisterType<CalendarActor>().PropertiesAutowired().AsSelf();
             builder.RegisterType<CalendarService>().As<ISingleEventService>().PropertiesAutowired();
             builder.RegisterType<CalendarService>().As<IEventSeriesService>().PropertiesAutowired();
-            builder.RegisterType<CalendarService>().As<IEditedSeriesEventService>().PropertiesAutowired();
+            builder.RegisterType<CalendarService>().As<IEventFromSeriesService>().PropertiesAutowired();
             builder.RegisterType<CalendarService>().As<IMetadataService>().PropertiesAutowired();
             
             builder.RegisterType<CalendarRepository>().As<ISingleEventRepository>().PropertiesAutowired();
             builder.RegisterType<CalendarRepository>().As<IEventSeriesRepository>().PropertiesAutowired();
             builder.RegisterType<CalendarRepository>().As<IEventFromSeriesRepository>().PropertiesAutowired();
-            
-            
             
             base.Load(builder);
         }

@@ -48,29 +48,31 @@ namespace UltricoCalendarContracts
         public class SingleEventCommands : EventCommands<SingleEventModel>{}
         
         public class EventSeriesCommands : EventCommands<EventSeriesModel>{}
+        
+        public class EventFromSeriesCommands : EventCommands<EventFromSeriesModel>{}
 
         public class EditEventFromSeriesCommands
         {
-            public class EditEventFromSeries
+            public class ExcludeEventFromSeries
             {
                 public EventFromSeriesModel EventFromSeriesModelData { get; }
                 
                 public int SeriesId { get; }
 
-                public EditEventFromSeries(EventFromSeriesModel eventFromSeriesModelData, int seriesId)
+                public ExcludeEventFromSeries(EventFromSeriesModel eventFromSeriesModelData, int seriesId)
                 {
                     EventFromSeriesModelData = eventFromSeriesModelData;
                     SeriesId = seriesId;
                 }
             }
 
-            public class DeleteEventFromSeries
+            public class DeleteEventOccurenceFromSeries
             {
                 public int SeriesId { get; }
                 
                 public DateTime DateTime { get; }
 
-                public DeleteEventFromSeries(int seriesId, DateTime dateTime)
+                public DeleteEventOccurenceFromSeries(int seriesId, DateTime dateTime)
                 {
                     SeriesId = seriesId;
                     DateTime = dateTime;

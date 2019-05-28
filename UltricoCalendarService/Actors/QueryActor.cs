@@ -23,7 +23,7 @@ namespace UltricoCalendarService.Actors
 
         private readonly IEventSeriesService _eventSeriesService = UltricoModule.IoCContainer.Resolve<IEventSeriesService>();
 
-        private readonly IEditedSeriesEventService _editedSeriesEventService = UltricoModule.IoCContainer.Resolve<IEditedSeriesEventService>();
+        private readonly IEventFromSeriesService _eventFromSeriesService = UltricoModule.IoCContainer.Resolve<IEventFromSeriesService>();
 
         private readonly IMetadataService _metadataService = UltricoModule.IoCContainer.Resolve<IMetadataService>();
         
@@ -48,9 +48,9 @@ namespace UltricoCalendarService.Actors
                 Context.Sender.Tell(result);
             });
             
-            Receive<Queries.EditEventFromSeriesQueries.Get>(query =>
+            Receive<Queries.EventFromSeriesQueries.Get>(query =>
             {
-                var result = _editedSeriesEventService.GetEditedEventFromSeries(query.Id);
+                var result = _eventFromSeriesService.GetEditedEventFromSeries(query.Id);
                 Context.Sender.Tell(result);
             });
         }
