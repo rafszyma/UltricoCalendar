@@ -7,3 +7,6 @@ TODO:
 4. Comment Swagger properly
 5. Validate models with correct attributes
 6. Add failchecks
+7. Rethink encapsulation
+8. Test EventFromSeries CRUD operations.
+9. Return Ids for easier checks

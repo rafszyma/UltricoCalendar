@@ -5,7 +5,7 @@ using UltricoCalendarContracts.Models;
 
 namespace UltricoCalendarContracts.Interfaces.Repository
 {
-    public interface ISingleEventRepository
+    public interface ISingleEventRepository : IRepository
     {
         void AddSingleEvent(SingleEvent singleEvent);
         SingleEvent GetSingleEvent(int id);

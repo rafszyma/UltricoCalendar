@@ -13,12 +13,19 @@ namespace UltricoCalendarService.Service
 {
     public class CalendarService : ISingleEventService, IEventSeriesService, IEventFromSeriesService, IMetadataService
     {
-        private readonly ISingleEventRepository _singleEventRepository = UltricoModule.IoCContainer.Resolve<ISingleEventRepository>();
-        
-        private readonly IEventSeriesRepository _eventSeriesRepository = UltricoModule.IoCContainer.Resolve<IEventSeriesRepository>();
-        
-        private readonly IEventFromSeriesRepository _eventFromSeriesRepository = UltricoModule.IoCContainer.Resolve<IEventFromSeriesRepository>();
-        
+        private readonly ISingleEventRepository _singleEventRepository;
+
+        private readonly IEventSeriesRepository _eventSeriesRepository;
+
+        private readonly IEventFromSeriesRepository _eventFromSeriesRepository;
+
+        public CalendarService(ISingleEventRepository singleEventRepository, IEventSeriesRepository eventSeriesRepository, IEventFromSeriesRepository eventFromSeriesRepository)
+        {
+            _singleEventRepository = singleEventRepository;
+            _eventSeriesRepository = eventSeriesRepository;
+            _eventFromSeriesRepository = eventFromSeriesRepository;
+        }
+
         public void AddEvent(ICalendarEvent newEventModel)
         {
             _singleEventRepository.AddSingleEvent((SingleEvent)newEventModel.ToEntity());
