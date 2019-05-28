@@ -3,6 +3,7 @@ using Autofac;
 using UltricoCalendarCommon;
 using UltricoCalendarContracts.Interfaces;
 using UltricoCalendarContracts.Interfaces.Repository;
+using UltricoCalendarContracts.Interfaces.Service;
 using UltricoCalendarService.Actors;
 using UltricoCalendarService.Repositories;
 using UltricoCalendarService.Service;

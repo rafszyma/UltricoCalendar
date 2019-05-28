@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Solomio.Api.Infrastructure.Validation
+namespace UltricoCalendarCommon.Validators
 {
     #region
 

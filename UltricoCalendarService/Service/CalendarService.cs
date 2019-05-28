@@ -6,6 +6,7 @@ using UltricoCalendarCommon;
 using UltricoCalendarContracts.Entities;
 using UltricoCalendarContracts.Interfaces;
 using UltricoCalendarContracts.Interfaces.Repository;
+using UltricoCalendarContracts.Interfaces.Service;
 using UltricoCalendarContracts.Models;
 
 namespace UltricoCalendarService.Service

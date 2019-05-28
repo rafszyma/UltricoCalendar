@@ -7,6 +7,7 @@ using UltricoCalendarContracts.Entities;
 using UltricoCalendarContracts.Enums;
 using UltricoCalendarContracts.Extensions;
 using UltricoCalendarContracts.Interfaces;
+using UltricoCalendarContracts.Occurences;
 
 namespace UltricoCalendarContracts.Models
 {

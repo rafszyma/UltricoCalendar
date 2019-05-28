@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace UltricoCalendarContracts
+﻿namespace UltricoCalendarCommon
 {
     public class UltricoServiceSettings
     {

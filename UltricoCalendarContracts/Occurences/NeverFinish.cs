@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UltricoCalendarContracts.Enums;
 
-namespace UltricoCalendarContracts
+namespace UltricoCalendarContracts.Occurences
 {
     public class NeverFinish : FinishClass
     {

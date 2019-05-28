@@ -1,4 +1,4 @@
-namespace UltricoCalendarContracts
+namespace UltricoCalendarCommon
 {
     public class UltricoApiSettings
     {

@@ -5,6 +5,7 @@ using UltricoCalendarCommon;
 using UltricoCalendarContracts;
 using UltricoCalendarContracts.Entities;
 using UltricoCalendarContracts.Extensions;
+using UltricoCalendarContracts.Occurences;
 
 namespace UltricoCalendarService.Persistance
 {

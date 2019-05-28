@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Newtonsoft.Json;
 using UltricoCalendarContracts.Enums;
 
-namespace UltricoCalendarContracts
+namespace UltricoCalendarContracts.Occurences
 {
     public abstract class FinishClass
     {

@@ -9,6 +9,7 @@ using UltricoCalendarCommon;
 using UltricoCalendarContracts;
 using UltricoCalendarContracts.Interfaces;
 using UltricoCalendarContracts.Interfaces.Repository;
+using UltricoCalendarContracts.Interfaces.Service;
 using UltricoCalendarContracts.Models;
 using UltricoCalendarService.Persistance;
 

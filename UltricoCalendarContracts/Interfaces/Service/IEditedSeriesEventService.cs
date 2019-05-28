@@ -1,8 +1,6 @@
 using System;
-using UltricoCalendarContracts.Entities;
-using UltricoCalendarContracts.Models;
 
-namespace UltricoCalendarContracts.Interfaces
+namespace UltricoCalendarContracts.Interfaces.Service
 {
     public interface IEditedSeriesEventService
     {

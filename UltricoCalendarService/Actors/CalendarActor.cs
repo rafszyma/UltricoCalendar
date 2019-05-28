@@ -8,6 +8,7 @@ using UltricoCalendarCommon;
 using UltricoCalendarContracts;
 using UltricoCalendarContracts.Interfaces;
 using UltricoCalendarContracts.Interfaces.Repository;
+using UltricoCalendarContracts.Interfaces.Service;
 
 namespace UltricoCalendarService.Actors
 {

@@ -1,4 +1,5 @@
 using System;
+using UltricoCalendarContracts.Occurences;
 
 namespace UltricoCalendarContracts.Enums
 {
