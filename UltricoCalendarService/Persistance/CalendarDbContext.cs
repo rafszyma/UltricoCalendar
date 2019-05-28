@@ -11,11 +11,6 @@ namespace UltricoCalendarService.Persistance
 {
     public class CalendarDbContext : DbContext
     { 
-        public CalendarDbContext(DbContextOptions<CalendarDbContext> options)
-            : base(options)
-        {
-        }
-        
         public CalendarDbContext() : base(GenerateOptions())
         {
         }
@@ -24,7 +19,7 @@ namespace UltricoCalendarService.Persistance
         
         public DbSet<EventSeries> EventSeries { get; set; }
         
-        public DbSet<EditedSeriesEvent> EditedSeriesEvents { get; set; }
+        public DbSet<EventFromSeries> EditedSeriesEvents { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -35,7 +30,7 @@ namespace UltricoCalendarService.Persistance
 
         private void MapEditedSeriesEvents(ModelBuilder modelBuilder)
         {
-            var entity = modelBuilder.Entity<EditedSeriesEvent>();
+            var entity = modelBuilder.Entity<EventFromSeries>();
             entity.HasKey(x => x.Id);
             entity.Property(x => x.Title).IsRequired();
             entity.Property(x => x.Start).IsRequired();

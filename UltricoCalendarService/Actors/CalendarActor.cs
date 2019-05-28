@@ -56,7 +56,7 @@ namespace UltricoCalendarService.Actors
             
             Receive<Commands.EditEventFromSeriesCommands.EditEventFromSeries>(command =>
             {
-                _editedSeriesEventService.EditEventFromSeries(command.SeriesId, command.EventModelData);
+                _editedSeriesEventService.EditEventFromSeries(command.SeriesId, command.EventFromSeriesModelData);
             });
             
             Receive<Commands.EditEventFromSeriesCommands.DeleteEventFromSeries>(command =>

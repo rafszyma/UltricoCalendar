@@ -11,7 +11,7 @@ using UltricoCalendarContracts.Models;
 
 namespace UltricoCalendarContracts.Entities
 {
-    public class EditedSeriesEvent : CalendarEvent, ICalendarDisplayable
+    public class EventFromSeries : CalendarEvent, ICalendarDisplayable
     {
         public int EventSeriesId { get; set; }
         
@@ -31,7 +31,7 @@ namespace UltricoCalendarContracts.Entities
 
         public override BaseEventModel ToBaseModel()
         {
-            return new ScheduleEventModel
+            return new SingleEventModel
             {
                 Title = Title,
                 Description = Description,

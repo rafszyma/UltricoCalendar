@@ -45,21 +45,21 @@ namespace UltricoCalendarContracts
 
         }
         
-        public class SingleEventCommands : EventCommands<ScheduleEventModel>{}
+        public class SingleEventCommands : EventCommands<SingleEventModel>{}
         
-        public class EventSeriesCommands : EventCommands<ScheduleEventModelSeries>{}
+        public class EventSeriesCommands : EventCommands<EventSeriesModel>{}
 
         public class EditEventFromSeriesCommands
         {
             public class EditEventFromSeries
             {
-                public ScheduleEventModelFromSeries EventModelData { get; }
+                public EventFromSeriesModel EventFromSeriesModelData { get; }
                 
                 public int SeriesId { get; }
 
-                public EditEventFromSeries(ScheduleEventModelFromSeries eventModelData, int seriesId)
+                public EditEventFromSeries(EventFromSeriesModel eventFromSeriesModelData, int seriesId)
                 {
-                    EventModelData = eventModelData;
+                    EventFromSeriesModelData = eventFromSeriesModelData;
                     SeriesId = seriesId;
                 }
             }

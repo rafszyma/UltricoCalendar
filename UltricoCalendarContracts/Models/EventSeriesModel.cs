@@ -11,7 +11,7 @@ using UltricoCalendarContracts.Occurences;
 
 namespace UltricoCalendarContracts.Models
 {
-    public class ScheduleEventModelSeries : BaseEventModel
+    public class EventSeriesModel : BaseEventModel
     {
         public RepeatPeriod RepeatPeriod { get; set; }
         

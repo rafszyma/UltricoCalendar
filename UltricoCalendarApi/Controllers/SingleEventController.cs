@@ -19,17 +19,17 @@ namespace UltricoCalendarApi.Controllers
         }
                 
         [HttpPost]
-        public async Task<IActionResult> PostEvent([FromBody] ScheduleEventModel scheduleEventModel)
+        public async Task<IActionResult> PostEvent([FromBody] SingleEventModel singleEventModel)
         {
-            var command = new Commands.SingleEventCommands.Add(scheduleEventModel);
+            var command = new Commands.SingleEventCommands.Add(singleEventModel);
             ServiceActorRefs.CalendarServiceActor.Tell(command);
             return Ok();
         }
         
         [HttpPost("edit/{id}")]
-        public async Task<IActionResult> EditEvent(int id, [FromBody] ScheduleEventModel scheduleEventModel)
+        public async Task<IActionResult> EditEvent(int id, [FromBody] SingleEventModel singleEventModel)
         {
-            var command = new Commands.SingleEventCommands.Update(id, scheduleEventModel);
+            var command = new Commands.SingleEventCommands.Update(id, singleEventModel);
             ServiceActorRefs.CalendarServiceActor.Tell(command);
             return Ok();
         }

@@ -21,7 +21,7 @@ namespace UltricoCalendarContracts.Entities
         
         public FinishClass Finish { get; set; }
         
-        public virtual List<EditedSeriesEvent> EditedEvents { get; set; }
+        public virtual List<EventFromSeries> EditedEvents { get; set; }
         
         public List<DateTime> DeletedOccurrences { get; set; }
         
@@ -45,7 +45,7 @@ namespace UltricoCalendarContracts.Entities
 
         public override BaseEventModel ToBaseModel()
         {
-            return new ScheduleEventModelSeries
+            return new EventSeriesModel
             {
                 Title = Title,
                 Description = Description,

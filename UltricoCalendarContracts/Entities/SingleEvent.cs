@@ -23,7 +23,7 @@ namespace UltricoCalendarContracts.Entities
 
         public override BaseEventModel ToBaseModel()
         {
-            return new ScheduleEventModel
+            return new SingleEventModel
             {
                 Title = Title,
                 Description = Description,

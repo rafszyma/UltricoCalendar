@@ -1,25 +1,27 @@
 using System;
+using System.Collections.Generic;
 using System.Net.Mail;
-using System.Runtime.CompilerServices;
 using UltricoCalendarContracts.Entities;
 using UltricoCalendarContracts.Extensions;
+using UltricoCalendarContracts.Interfaces;
 
 namespace UltricoCalendarContracts.Models
 {
-    public class ScheduleEventModelFromSeries : ScheduleEventModel
+    public class SingleEventModel : BaseEventModel 
     {
-        public DateTime OldStartDate { get; set; }
+
         public override CalendarEvent ToEntity()
         {
-            return new EditedSeriesEvent
+            return new SingleEvent
             {
                 Title = Title,
                 Description = Description,
                 Start = Start,
                 Duration = TimeSpan.Parse(Duration) == TimeSpan.Zero ? EventDuration.FullDayDuration() : EventDuration.TimeSpanDuration(TimeSpan.Parse(Duration)),
-                MailAddresses = MailAddresses,
-                OldStartDate = OldStartDate
+                MailAddresses = MailAddresses
             };
         }
+
+        
     }
 }

@@ -13,7 +13,7 @@ using UltricoCalendarService.Persistance;
 
 namespace UltricoCalendarService.Repositories
 {
-    public class CalendarRepository : ISingleEventRepository, IEventSeriesRepository, IEditedSeriesEventRepository
+    public class CalendarRepository : ISingleEventRepository, IEventSeriesRepository, IEventFromSeriesRepository
     {
         public void AddSingleEvent(SingleEvent singleEvent)
         {
@@ -106,16 +106,16 @@ namespace UltricoCalendarService.Repositories
             }
         }
 
-        public void AddEditedSeriesEvent(EditedSeriesEvent editedSeriesEvent)
+        public void AddEventFromSeries(EventFromSeries eventFromSeries)
         {
             using (var db = new CalendarDbContext())
             {
-                db.EditedSeriesEvents.Add(editedSeriesEvent);
+                db.EditedSeriesEvents.Add(eventFromSeries);
                 db.SaveChanges();
             }
         }
 
-        public EditedSeriesEvent GetEditedSeriesEvent(int id)
+        public EventFromSeries GetEventFromSeries(int id)
         {
             using (var db = new CalendarDbContext())
             {
@@ -123,16 +123,16 @@ namespace UltricoCalendarService.Repositories
             }
         }
 
-        public void UpdateEditedSeriesEvent(EditedSeriesEvent editedSeriesEvent)
+        public void UpdateEventFromSeries(EventFromSeries eventFromSeries)
         {
             using (var db = new CalendarDbContext())
             {
-                db.EditedSeriesEvents.Update(editedSeriesEvent);
+                db.EditedSeriesEvents.Update(eventFromSeries);
                 db.SaveChanges();
             }
         }
 
-        public void DeleteEditedSeriesEvent(int id)
+        public void DeleteEventFromSeries(int id)
         {
             using (var db = new CalendarDbContext())
             {
@@ -142,7 +142,7 @@ namespace UltricoCalendarService.Repositories
             }
         }
 
-        public List<EditedSeriesEvent> GetEditedSeriesEvent(DateTime @from, DateTime to)
+        public List<EventFromSeries> GetEventFromSeries(DateTime @from, DateTime to)
         {
             using (var db = new CalendarDbContext())
             {
