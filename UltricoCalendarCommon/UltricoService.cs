@@ -1,27 +1,23 @@
 ﻿using System;
-using System.IO;
-using System.Runtime.CompilerServices;
 using Akka.Actor;
 using Akka.Configuration;
 using Akka.DI.AutoFac;
 using Autofac;
 using Microsoft.Extensions.Configuration;
 using Serilog;
-using UltricoCalendarContracts;
 
 namespace UltricoCalendarCommon
 {
     public class UltricoService
     {
-        private ActorSystem _actorSystem;
-
         public static IContainer Container;
-
-        private readonly string _serviceName;
 
         private readonly UltricoModule _serviceModule;
 
+        private readonly string _serviceName;
+
         private readonly UltricoServiceSettings _serviceSettings;
+        private ActorSystem _actorSystem;
 
         public UltricoService(string serviceName, UltricoModule serviceModule, UltricoServiceSettings serviceSettings)
         {
@@ -47,7 +43,7 @@ namespace UltricoCalendarCommon
                 .AddJsonFile("appsettings.json", true, true)
                 .AddEnvironmentVariables()
                 .Build();
-            
+
             configuration.Bind(_serviceSettings);
         }
 
@@ -58,7 +54,7 @@ namespace UltricoCalendarCommon
                 .WriteTo.Console()
                 .Enrich.WithProperty("Diag.Application", _serviceName)
                 .CreateLogger();
-            
+
             Log.Information($"Using Serilog logger for {_serviceName}");
         }
 
@@ -94,10 +90,7 @@ akka {
     }
 }");
                 _actorSystem = ActorSystem.Create("ultrico-calendar", config);
-                if (Container != null)
-                {
-                    new AutoFacDependencyResolver(Container, _actorSystem);
-                }
+                if (Container != null) new AutoFacDependencyResolver(Container, _actorSystem);
             }
             catch (Exception ex)
             {

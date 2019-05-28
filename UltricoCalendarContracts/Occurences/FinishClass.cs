@@ -7,7 +7,8 @@ namespace UltricoCalendarContracts.Occurences
 {
     public abstract class FinishClass
     {
-        public abstract IEnumerable<DateTime> Occur(RepeatPeriod repeatPeriod, DateTime repeatFrom, DateTime repeatTill);
+        public abstract IEnumerable<DateTime>
+            Occur(RepeatPeriod repeatPeriod, DateTime repeatFrom, DateTime repeatTill);
 
         public abstract FinishEnum GetFinishValue();
 

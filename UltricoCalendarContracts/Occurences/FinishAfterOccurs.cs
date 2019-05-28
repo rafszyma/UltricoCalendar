@@ -6,12 +6,12 @@ namespace UltricoCalendarContracts.Occurences
 {
     public class FinishAfterOccurs : FinishClass
     {
-        public int MaxTimesToOccur { get; }
-
         public FinishAfterOccurs(int maxTimesToOccur)
         {
             MaxTimesToOccur = maxTimesToOccur;
         }
+
+        public int MaxTimesToOccur { get; }
 
         public override IEnumerable<DateTime> Occur(RepeatPeriod repeatPeriod, DateTime repeatFrom, DateTime repeatTill)
         {

@@ -15,7 +15,7 @@ namespace UltricoCalendarCommon
         {
             return JsonConvert.DeserializeObject<List<string>>(json);
         }
-        
+
         public static string ToJsonDateTime(List<DateTime> list)
         {
             return JsonConvert.SerializeObject(list);

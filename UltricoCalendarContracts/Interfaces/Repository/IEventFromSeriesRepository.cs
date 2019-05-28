@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UltricoCalendarContracts.Entities;
-using UltricoCalendarContracts.Models;
 
 namespace UltricoCalendarContracts.Interfaces.Repository
 {

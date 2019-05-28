@@ -1,5 +1,3 @@
-using System;
-
 namespace UltricoCalendarApi.Models
 {
     public class ErrorViewModel

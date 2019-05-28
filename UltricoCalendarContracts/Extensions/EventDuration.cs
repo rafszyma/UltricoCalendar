@@ -6,22 +6,21 @@ namespace UltricoCalendarContracts.Extensions
 {
     public class EventDuration
     {
-        public TimeSpan EventDurationTimeSpan { get; }
-
-        public DurationType EventDurationType { get; }
-        
-
         private EventDuration(TimeSpan eventDurationTimeSpan, DurationType eventDurationType)
         {
             EventDurationType = eventDurationType;
             EventDurationTimeSpan = eventDurationTimeSpan;
         }
 
+        public TimeSpan EventDurationTimeSpan { get; }
+
+        public DurationType EventDurationType { get; }
+
         public static EventDuration FullDayDuration()
         {
             return new EventDuration(TimeSpan.FromHours(24), DurationType.FullDay);
         }
-        
+
         public static EventDuration TimeSpanDuration(TimeSpan timeSpan)
         {
             return new EventDuration(timeSpan, DurationType.TimeSpan);
@@ -37,6 +36,4 @@ namespace UltricoCalendarContracts.Extensions
             return JsonConvert.DeserializeObject<EventDuration>(json);
         }
     }
-    
-    
 }

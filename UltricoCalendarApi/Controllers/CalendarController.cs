@@ -4,7 +4,6 @@ using Akka.Actor;
 using Microsoft.AspNetCore.Mvc;
 using UltricoCalendarCommon;
 using UltricoCalendarContracts;
-using UltricoCalendarContracts.Models;
 
 namespace UltricoCalendarApi.Controllers
 {

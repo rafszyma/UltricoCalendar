@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UltricoCalendarContracts.Extensions;
 
 namespace UltricoCalendarContracts.Models
 {
@@ -8,9 +7,9 @@ namespace UltricoCalendarContracts.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
-        
+
         public IEnumerable<DateTime> Start { get; set; }
-        
+
         public TimeSpan Duration { get; set; }
     }
 }

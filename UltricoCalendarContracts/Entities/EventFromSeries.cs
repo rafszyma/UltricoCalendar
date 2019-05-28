@@ -1,11 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.Linq;
-using System.Net.Mail;
-using Serilog;
 using UltricoCalendarContracts.Enums;
-using UltricoCalendarContracts.Extensions;
 using UltricoCalendarContracts.Interfaces;
 using UltricoCalendarContracts.Models;
 
@@ -14,18 +9,19 @@ namespace UltricoCalendarContracts.Entities
     public class EventFromSeries : CalendarEvent, ICalendarDisplayable
     {
         public int EventSeriesId { get; set; }
-        
+
         public virtual EventSeries EventSeries { get; set; }
 
         public DateTime OldStartDate { get; set; }
-        public EventMetadata ToMetadata(DateTime @from, DateTime to)
+
+        public EventMetadata ToMetadata(DateTime from, DateTime to)
         {
             return new EventMetadata
             {
                 Id = Id,
                 Title = Title,
                 Duration = Duration.EventDurationTimeSpan,
-                Start = new List<DateTime> { Duration.EventDurationType == DurationType.FullDay ? Start.Date : Start }
+                Start = new List<DateTime> {Duration.EventDurationType == DurationType.FullDay ? Start.Date : Start}
             };
         }
 

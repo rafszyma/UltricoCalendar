@@ -1,12 +1,7 @@
 using System;
-using System.Globalization;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
 using UltricoCalendarContracts.Entities;
 using UltricoCalendarContracts.Enums;
 using UltricoCalendarContracts.Extensions;
-using UltricoCalendarContracts.Interfaces;
 using UltricoCalendarContracts.Occurences;
 
 namespace UltricoCalendarContracts.Models
@@ -14,17 +9,17 @@ namespace UltricoCalendarContracts.Models
     public class EventSeriesModel : BaseEventModel
     {
         public RepeatPeriod RepeatPeriod { get; set; }
-        
+
         public FinishEnum FinishEnum { get; set; }
 
         public int? OccursAmount { get; set; }
-        
+
         public DateTime? FinishDate { get; set; }
-        
+
         public override CalendarEvent ToEntity()
         {
             FinishClass finishClass = new NeverFinish();
-            
+
             // This looks very ugly and is against SOLID but can't think of anything better, there is way to assign logic to Enum value in Java, but can't think of anything better in C#
             switch (FinishEnum)
             {

@@ -1,63 +1,57 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Akka.Actor;
 using Autofac;
-using Autofac.Features.OwnedInstances;
-using Serilog;
 using UltricoCalendarCommon;
 using UltricoCalendarContracts;
-using UltricoCalendarContracts.Interfaces;
-using UltricoCalendarContracts.Interfaces.Repository;
+using UltricoCalendarContracts.Entities;
 using UltricoCalendarContracts.Interfaces.Service;
-using UltricoCalendarContracts.Models;
-using UltricoCalendarService.Persistance;
 
 namespace UltricoCalendarService.Actors
 {
     public class QueryActor : ReceiveActor
     {
-        private static Props Props => Props.Create(() => new QueryActor());
+        private readonly IEventFromSeriesService _eventFromSeriesService =
+            UltricoModule.IoCContainer.Resolve<IEventFromSeriesService>();
 
-        private readonly ISingleEventService _singleEventService = UltricoModule.IoCContainer.Resolve<ISingleEventService>();
-
-        private readonly IEventSeriesService _eventSeriesService = UltricoModule.IoCContainer.Resolve<IEventSeriesService>();
-
-        private readonly IEventFromSeriesService _eventFromSeriesService = UltricoModule.IoCContainer.Resolve<IEventFromSeriesService>();
+        private readonly IEventSeriesService _eventSeriesService =
+            UltricoModule.IoCContainer.Resolve<IEventSeriesService>();
 
         private readonly IMetadataService _metadataService = UltricoModule.IoCContainer.Resolve<IMetadataService>();
-        
+
+        private readonly ISingleEventService _singleEventService =
+            UltricoModule.IoCContainer.Resolve<ISingleEventService>();
+
         public QueryActor()
         {
-            
             Receive<Queries.GetEventMetadata>(query =>
             {
                 var result = _metadataService.GetMetadata(query.From, query.To);
                 Context.Sender.Tell(result);
             });
-            
-            Receive<Queries.SingleEventQueries.Get>(query =>
+
+            Receive<Queries.EventQueries<SingleEvent>.Get>(query =>
             {
                 var result = _singleEventService.GetEvent(query.Id);
                 Context.Sender.Tell(result);
             });
-            
-            Receive<Queries.EventSeriesQueries.Get>(query =>
+
+            Receive<Queries.EventQueries<EventSeries>.Get>(query =>
             {
                 var result = _eventSeriesService.GetEventSeries(query.Id);
                 Context.Sender.Tell(result);
             });
-            
-            Receive<Queries.EventFromSeriesQueries.Get>(query =>
+
+            Receive<Queries.EventQueries<EventFromSeries>.Get>(query =>
             {
                 var result = _eventFromSeriesService.GetEditedEventFromSeries(query.Id);
                 Context.Sender.Tell(result);
             });
         }
-        
+
+        private static Props Props => Props.Create(() => new QueryActor());
+
         public static void Create(ActorSystem system)
         {
-            system.ActorOf(Props,"query-actor");
+            system.ActorOf(Props, "query-actor");
         }
     }
 }
