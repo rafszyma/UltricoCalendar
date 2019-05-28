@@ -33,13 +33,11 @@ namespace UltricoCalendarTest
         
         [Fact]public void TestIfAddsEventSeries(){}
         [Fact]public void TestIfGetsEventSeries(){}
-        
         [Fact]public void TestIfDeletesEventSeries(){}
         [Fact]public void TestIfEditsEventSeries(){}
         
         [Fact]public void TestIfDeletedEventFromSeries(){}
         [Fact]public void TestIfEditEventFromSeries(){}
-        
         [Fact]public void TestIfGetsEditedEventFromSeries(){}
         [Fact]public void TestIfGetsCalendarMetadata(){}
 
