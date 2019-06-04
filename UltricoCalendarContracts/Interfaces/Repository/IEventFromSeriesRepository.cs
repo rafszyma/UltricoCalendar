@@ -6,10 +6,10 @@ namespace UltricoCalendarContracts.Interfaces.Repository
 {
     public interface IEventFromSeriesRepository : IRepository
     {
-        void AddEventFromSeries(EventFromSeries eventFromSeries);
+        int AddEventFromSeries(EventFromSeries eventFromSeries);
         EventFromSeries GetEventFromSeries(int id);
-        void UpdateEventFromSeries(EventFromSeries eventFromSeries);
-        void DeleteEventFromSeries(int id);
+        EventFromSeries UpdateEventFromSeries(EventFromSeries eventFromSeries);
+        bool DeleteEventFromSeries(int id);
         List<EventFromSeries> GetEventFromSeries(DateTime from, DateTime to);
     }
 }

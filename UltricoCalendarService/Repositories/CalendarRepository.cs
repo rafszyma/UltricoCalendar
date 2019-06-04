@@ -10,12 +10,13 @@ namespace UltricoCalendarService.Repositories
 {
     public class CalendarRepository : ISingleEventRepository, IEventSeriesRepository, IEventFromSeriesRepository
     {
-        public void AddEventFromSeries(EventFromSeries eventFromSeries)
+        public int AddEventFromSeries(EventFromSeries eventFromSeries)
         {
             using (var db = new CalendarDbContext())
             {
-                db.EditedSeriesEvents.Add(eventFromSeries);
+                var entity = db.EditedSeriesEvents.Add(eventFromSeries);
                 db.SaveChanges();
+                return entity.Entity.Id;
             }
         }
 
@@ -24,26 +25,26 @@ namespace UltricoCalendarService.Repositories
             using (var db = new CalendarDbContext())
             {
                 return db.EditedSeriesEvents.First(x => x.Id == id);
-                ;
             }
         }
 
-        public void UpdateEventFromSeries(EventFromSeries eventFromSeries)
+        public EventFromSeries UpdateEventFromSeries(EventFromSeries eventFromSeries)
         {
             using (var db = new CalendarDbContext())
             {
-                db.EditedSeriesEvents.Update(eventFromSeries);
+                var entity = db.EditedSeriesEvents.Update(eventFromSeries);
                 db.SaveChanges();
+                return entity.Entity;
             }
         }
 
-        public void DeleteEventFromSeries(int id)
+        public bool DeleteEventFromSeries(int id)
         {
             using (var db = new CalendarDbContext())
             {
                 var editedSeriesEventToDelete = db.EventSeries.First(x => x.Id == id);
                 db.EventSeries.Remove(editedSeriesEventToDelete);
-                db.SaveChanges();
+                return db.SaveChanges() > 0;
             }
         }
 
@@ -56,13 +57,25 @@ namespace UltricoCalendarService.Repositories
             }
         }
 
-        public void DeleteEventSeries(int id)
+        public int ExcludeEventFromSeries(int seriesId, EventFromSeries eventToExclude)
+        {
+            using (var db = new CalendarDbContext())
+            {
+                var eventSeries = db.EventSeries.Include(x => x.EditedEvents).First(x => x.Id == seriesId);
+                eventSeries.EditedEvents.Add(eventToExclude);
+                db.Update(eventSeries);
+                db.SaveChanges();
+                return eventToExclude.Id;
+            }
+        }
+
+        public bool DeleteEventSeries(int id)
         {
             using (var db = new CalendarDbContext())
             {
                 var eventToDelete = db.EventSeries.First(x => x.Id == id);
                 db.EventSeries.Remove(eventToDelete);
-                db.SaveChanges();
+                return db.SaveChanges() > 0;
             }
         }
 
@@ -70,17 +83,18 @@ namespace UltricoCalendarService.Repositories
         {
             using (var db = new CalendarDbContext())
             {
-                var eventSeries = db.EventSeries.Where(x => x.Start < to).Include(x => x.EditedEvents).ToList();
+                var eventSeries = db.EventSeries.Where(x => x.Start > from && x.Start < to).Include(x => x.EditedEvents).ToList();
                 return eventSeries;
             }
         }
 
-        public void AddEventSeries(EventSeries eventSeries)
+        public int AddEventSeries(EventSeries eventSeries)
         {
             using (var db = new CalendarDbContext())
             {
-                db.EventSeries.Add(eventSeries);
+                var entity = db.EventSeries.Add(eventSeries);
                 db.SaveChanges();
+                return entity.Entity.Id;
             }
         }
 
@@ -93,21 +107,23 @@ namespace UltricoCalendarService.Repositories
             }
         }
 
-        public void UpdateEventSeries(EventSeries editedEventSeries)
+        public EventSeries UpdateEventSeries(EventSeries editedEventSeries)
         {
             using (var db = new CalendarDbContext())
             {
-                db.EventSeries.Update(editedEventSeries);
+                var addedEntity = db.EventSeries.Update(editedEventSeries);
                 db.SaveChanges();
+                return addedEntity.Entity;
             }
         }
 
-        public void AddSingleEvent(SingleEvent singleEvent)
+        public int AddSingleEvent(SingleEvent singleEvent)
         {
             using (var db = new CalendarDbContext())
             {
-                db.SingleEvents.Add(singleEvent);
+                var entity = db.SingleEvents.Add(singleEvent);
                 db.SaveChanges();
+                return entity.Entity.Id;
             }
         }
 
@@ -119,22 +135,23 @@ namespace UltricoCalendarService.Repositories
             }
         }
 
-        public void UpdateSingleEvent(SingleEvent editedSingleEvent)
+        public SingleEvent UpdateSingleEvent(SingleEvent editedSingleEvent)
         {
             using (var db = new CalendarDbContext())
             {
-                db.SingleEvents.Update(editedSingleEvent);
+                var entity = db.SingleEvents.Update(editedSingleEvent);
                 db.SaveChanges();
+                return entity.Entity;
             }
         }
 
-        public void DeleteSingleEvent(int id)
+        public bool DeleteSingleEvent(int id)
         {
             using (var db = new CalendarDbContext())
             {
                 var eventToDelete = db.SingleEvents.First(x => x.Id == id);
                 db.SingleEvents.Remove(eventToDelete);
-                db.SaveChanges();
+                return db.SaveChanges() > 0;
             }
         }
 

@@ -42,7 +42,7 @@ namespace UltricoCalendarService.Actors
 
             Receive<Queries.EventQueries<EventFromSeries>.Get>(query =>
             {
-                var result = _eventFromSeriesService.GetEditedEventFromSeries(query.Id);
+                var result = _eventFromSeriesService.GetEventFromSeries(query.Id);
                 Context.Sender.Tell(result);
             });
         }

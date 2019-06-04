@@ -52,12 +52,12 @@ namespace UltricoCalendarService.Actors
 
             Receive<Commands.EditEventFromSeriesCommands.ExcludeEventFromSeries>(command =>
             {
-                _eventFromSeriesService.ExcludeEventFromSeries(command.SeriesId, command.EventFromSeriesModelData);
+                _eventSeriesService.ExcludeEventFromSeries(command.SeriesId, command.EventFromSeriesModelData);
             });
 
             Receive<Commands.EditEventFromSeriesCommands.DeleteEventOccurenceFromSeries>(command =>
             {
-                _eventFromSeriesService.DeleteEventOccurenceFromSeries(command.SeriesId, command.DateTime);
+                _eventSeriesService.DeleteEventOccurenceFromSeries(command.SeriesId, command.DateTime);
             });
 
             Receive<Commands.EventCommands<EventFromSeriesModel>.Update>(command =>

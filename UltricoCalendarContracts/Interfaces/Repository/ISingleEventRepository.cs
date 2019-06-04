@@ -6,10 +6,10 @@ namespace UltricoCalendarContracts.Interfaces.Repository
 {
     public interface ISingleEventRepository : IRepository
     {
-        void AddSingleEvent(SingleEvent singleEvent);
+        int AddSingleEvent(SingleEvent singleEvent);
         SingleEvent GetSingleEvent(int id);
-        void UpdateSingleEvent(SingleEvent editedSingleEvent);
-        void DeleteSingleEvent(int id);
+        SingleEvent UpdateSingleEvent(SingleEvent editedSingleEvent);
+        bool DeleteSingleEvent(int id);
         List<SingleEvent> GetSingleEvents(DateTime from, DateTime to);
     }
 }

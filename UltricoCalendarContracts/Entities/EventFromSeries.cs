@@ -27,7 +27,7 @@ namespace UltricoCalendarContracts.Entities
 
         public override BaseEventModel ToBaseModel()
         {
-            return new SingleEventModel
+            return new EventFromSeriesModel(OldStartDate)
             {
                 Title = Title,
                 Description = Description,

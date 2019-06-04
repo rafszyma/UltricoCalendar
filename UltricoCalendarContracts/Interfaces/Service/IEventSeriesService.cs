@@ -1,13 +1,19 @@
+using System;
+
 namespace UltricoCalendarContracts.Interfaces.Service
 {
     public interface IEventSeriesService
     {
-        void AddEventSeries(ICalendarEvent newEventModel);
+        int AddEventSeries(ICalendarEvent newEventModel);
 
         ICalendarEvent GetEventSeries(int id);
 
         void EditEventSeries(int id, ICalendarEvent newEventModel);
 
-        void DeleteEventSeries(int id);
+        bool DeleteEventSeries(int id);
+        
+        int ExcludeEventFromSeries(int id, ICalendarEvent newEventModel);
+
+        void DeleteEventOccurenceFromSeries(int seriesId, DateTime dateTime);
     }
 }

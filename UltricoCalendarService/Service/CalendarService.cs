@@ -24,15 +24,12 @@ namespace UltricoCalendarService.Service
             _eventFromSeriesRepository = eventFromSeriesRepository;
         }
 
-        public void ExcludeEventFromSeries(int seriesId, ICalendarEvent newEventModel)
+        public int ExcludeEventFromSeries(int seriesId, ICalendarEvent newEventModel)
         {
-            var series = _eventSeriesRepository.GetEventSeries(seriesId);
-            var editedEvent = (EventFromSeries) newEventModel.ToEntity();
-            series.EditedEvents.Add(editedEvent);
-            _eventSeriesRepository.UpdateEventSeries(series);
+            return _eventSeriesRepository.ExcludeEventFromSeries(seriesId, (EventFromSeries)newEventModel.ToEntity());
         }
 
-        public ICalendarEvent GetEditedEventFromSeries(int id)
+        public ICalendarEvent GetEventFromSeries(int id)
         {
             return (EventFromSeriesModel) _eventFromSeriesRepository.GetEventFromSeries(id).ToBaseModel();
         }
@@ -44,9 +41,9 @@ namespace UltricoCalendarService.Service
             _eventFromSeriesRepository.UpdateEventFromSeries(entity);
         }
 
-        public void DeleteEventFromSeries(int id)
+        public bool DeleteEventFromSeries(int id)
         {
-            _eventFromSeriesRepository.DeleteEventFromSeries(id);
+            return _eventFromSeriesRepository.DeleteEventFromSeries(id);
         }
 
         public void DeleteEventOccurenceFromSeries(int seriesId, DateTime dateTime)
@@ -56,9 +53,9 @@ namespace UltricoCalendarService.Service
             _eventSeriesRepository.UpdateEventSeries(series);
         }
 
-        public void AddEventSeries(ICalendarEvent newEventModel)
+        public int AddEventSeries(ICalendarEvent newEventModel)
         {
-            _eventSeriesRepository.AddEventSeries((EventSeries) newEventModel.ToEntity());
+            return _eventSeriesRepository.AddEventSeries((EventSeries) newEventModel.ToEntity());
         }
 
         public ICalendarEvent GetEventSeries(int id)
@@ -73,9 +70,9 @@ namespace UltricoCalendarService.Service
             _eventSeriesRepository.UpdateEventSeries(entity);
         }
 
-        public void DeleteEventSeries(int id)
+        public bool DeleteEventSeries(int id)
         {
-            _eventSeriesRepository.DeleteEventSeries(id);
+            return _eventSeriesRepository.DeleteEventSeries(id);
         }
 
 
@@ -90,9 +87,9 @@ namespace UltricoCalendarService.Service
             return result;
         }
 
-        public void AddEvent(ICalendarEvent newEventModel)
+        public int AddEvent(ICalendarEvent newEventModel)
         {
-            _singleEventRepository.AddSingleEvent((SingleEvent) newEventModel.ToEntity());
+            return _singleEventRepository.AddSingleEvent((SingleEvent) newEventModel.ToEntity());
         }
 
         public ICalendarEvent GetEvent(int id)
@@ -107,9 +104,9 @@ namespace UltricoCalendarService.Service
             _singleEventRepository.UpdateSingleEvent(entity);
         }
 
-        public void DeleteEvent(int id)
+        public bool DeleteEvent(int id)
         {
-            _singleEventRepository.DeleteSingleEvent(id);
+            return _singleEventRepository.DeleteSingleEvent(id);
         }
     }
 }
