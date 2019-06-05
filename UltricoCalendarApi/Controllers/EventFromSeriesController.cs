@@ -9,19 +9,44 @@ using UltricoCalendarContracts.Models;
 
 namespace UltricoCalendarApi.Controllers
 {
+    /// <summary>
+    /// RUD operations on EventsFromSeries.
+    /// </summary>
     [Route("eventFromSeries")]
     public class EventFromSeriesController : UltricoController
     {
+        /// <summary>
+        /// Gets single EventFromSeries model from database.
+        /// </summary>
+        /// <param name="id">
+        /// Id number of EventFromSeries we want to get.
+        /// </param>
+        /// <returns>
+        /// EventFromSeriesModel which represents EventFromSeries entity from database.
+        /// </returns>
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetEventFromSeries(int id)
+        [ProducesResponseType(typeof(EventFromSeries), 200)]
+        public IActionResult GetEventFromSeries(int id)
         {
             var query = new Queries.EventQueries<EventFromSeries>.Get(id);
             var result = ServiceActorRefs.CalendarQueryActor.Ask(query).GetAwaiter().GetResult();
             return Ok(result);
         }
 
+        /// <summary>
+        /// Edits single EventFromSeries in database.
+        /// </summary>
+        /// <param name="id">
+        /// Id number of EventFromSeries we want to edit with new properties.
+        /// </param>
+        /// <param name="eventFromSeriesModel">
+        /// New model which will be overwriting old properties.
+        /// </param>
+        /// <returns>
+        /// Returns 200.
+        /// </returns>
         [HttpPost("edit/{id}")]
-        public async Task<IActionResult> EditEventFromSeries(int id,
+        public IActionResult EditEventFromSeries(int id,
             [FromBody] EventFromSeriesModel eventFromSeriesModel)
         {
             var command = new Commands.EventCommands<EventFromSeriesModel>.Update(id, eventFromSeriesModel);
@@ -29,28 +54,19 @@ namespace UltricoCalendarApi.Controllers
             return Ok();
         }
 
+        /// <summary>
+        /// Deletes single EventFromSeries in database.
+        /// </summary>
+        /// <param name="id">
+        /// Id number of EventFromSeries we want to delete from database.
+        /// </param>
+        /// <returns>
+        /// Returns 200.
+        /// </returns>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEventFromSeries(int id)
+        public IActionResult DeleteEventFromSeries(int id)
         {
             var command = new Commands.EventCommands<EventFromSeriesModel>.Delete(id);
-            ServiceActorRefs.CalendarServiceActor.Tell(command);
-            return Ok();
-        }
-
-        [HttpPost("editEventFromSeries/{seriesId}")]
-        public async Task<IActionResult> ExcludeEventFromSeries([FromBody] EventFromSeriesModel eventFromSeriesModel,
-            int seriesId)
-        {
-            var command =
-                new Commands.EditEventFromSeriesCommands.ExcludeEventFromSeries(eventFromSeriesModel, seriesId);
-            ServiceActorRefs.CalendarServiceActor.Tell(command);
-            return Ok();
-        }
-
-        [HttpDelete("{seriesId}")]
-        public async Task<IActionResult> DeleteEventOccurenceFromSeries(int seriesId, [FromQuery] DateTime dateTime)
-        {
-            var command = new Commands.EditEventFromSeriesCommands.DeleteEventOccurenceFromSeries(seriesId, dateTime);
             ServiceActorRefs.CalendarServiceActor.Tell(command);
             return Ok();
         }
