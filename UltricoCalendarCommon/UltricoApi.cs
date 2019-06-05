@@ -72,6 +72,7 @@ akka {
                     var basePath = AppContext.BaseDirectory;
                     var xmlPath = Path.Combine(basePath, $"{Assembly.GetEntryAssembly().GetName().Name.ToLower()}.xml");
                     c.IncludeXmlComments(xmlPath);
+                    c.DescribeAllEnumsAsStrings();
                 });
 
             services.ConfigureSwaggerGen(options =>

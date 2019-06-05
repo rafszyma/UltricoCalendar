@@ -1,6 +1,8 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using UltricoCalendarCommon;
 using UltricoCalendarContracts.Entities;
+using UltricoCalendarContracts.Enums;
 using UltricoCalendarContracts.Extensions;
 using UltricoCalendarContracts.Occurences;
 
@@ -58,7 +60,9 @@ namespace UltricoCalendarService.Persistance
             entity.Property(x => x.Start).IsRequired();
             entity.Property(x => x.Duration).HasConversion(d => d.ToJson(), d => EventDuration.FromJson(d))
                 .IsRequired();
-            entity.Property(x => x.RepeatPeriod).IsRequired();
+            entity.Property(x => x.RepeatPeriod).HasConversion(
+                v => v.ToString(),
+                v => (RepeatPeriod)Enum.Parse(typeof(RepeatPeriod), v)).IsRequired();
             entity.HasMany(x => x.EditedEvents).WithOne(x => x.EventSeries);
             entity.Property(x => x.Finish).HasConversion(v => v.ToJson(), v => FinishClass.FromJson(v)).IsRequired();
             entity.Property(x => x.MailAddresses)
