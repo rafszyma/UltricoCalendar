@@ -11,7 +11,7 @@ namespace UltricoCalendarContracts.Interfaces.Service
         void EditEventSeries(int id, ICalendarEvent newEventModel);
 
         bool DeleteEventSeries(int id);
-        
+
         int ExcludeEventFromSeries(int id, ICalendarEvent newEventModel);
 
         void DeleteEventOccurenceFromSeries(int seriesId, DateTime dateTime);

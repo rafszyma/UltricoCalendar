@@ -1,5 +1,3 @@
-using System;
-
 namespace UltricoCalendarContracts.Interfaces.Service
 {
     public interface IEventFromSeriesService

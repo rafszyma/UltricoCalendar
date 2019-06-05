@@ -62,7 +62,7 @@ namespace UltricoCalendarService.Persistance
                 .IsRequired();
             entity.Property(x => x.RepeatPeriod).HasConversion(
                 v => v.ToString(),
-                v => (RepeatPeriod)Enum.Parse(typeof(RepeatPeriod), v)).IsRequired();
+                v => (RepeatPeriod) Enum.Parse(typeof(RepeatPeriod), v)).IsRequired();
             entity.HasMany(x => x.EditedEvents).WithOne(x => x.EventSeries);
             entity.Property(x => x.Finish).HasConversion(v => v.ToJson(), v => FinishClass.FromJson(v)).IsRequired();
             entity.Property(x => x.MailAddresses)

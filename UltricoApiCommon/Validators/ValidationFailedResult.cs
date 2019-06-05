@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
-namespace UltricoCalendarCommon.Validators
+namespace UltricoApiCommon.Validators
 {
     public class ValidationFailedResult : ObjectResult
     {

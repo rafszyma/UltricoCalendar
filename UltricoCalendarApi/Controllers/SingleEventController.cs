@@ -1,7 +1,6 @@
-using System.Threading.Tasks;
 using Akka.Actor;
 using Microsoft.AspNetCore.Mvc;
-using UltricoCalendarCommon;
+using UltricoApiCommon;
 using UltricoCalendarContracts;
 using UltricoCalendarContracts.Entities;
 using UltricoCalendarContracts.Models;
@@ -9,19 +8,19 @@ using UltricoCalendarContracts.Models;
 namespace UltricoCalendarApi.Controllers
 {
     /// <summary>
-    /// CRUD operations on SingleEvent entity.
+    ///     CRUD operations on SingleEvent entity.
     /// </summary>
     [Route("event")]
     public class SingleEventController : UltricoController
     {
         /// <summary>
-        /// Gets SingleEventModel of given id.
+        ///     Gets SingleEventModel of given id.
         /// </summary>
         /// <param name="id">
-        /// Id of SingleEvent we want to get.
+        ///     Id of SingleEvent we want to get.
         /// </param>
         /// <returns>
-        /// Returns SingleEventModel which represents SingleEvent in database.
+        ///     Returns SingleEventModel which represents SingleEvent in database.
         /// </returns>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(SingleEvent), 200)]
@@ -33,13 +32,13 @@ namespace UltricoCalendarApi.Controllers
         }
 
         /// <summary>
-        /// Creates SingleEvent in database.
+        ///     Creates SingleEvent in database.
         /// </summary>
         /// <param name="singleEventModel">
-        /// SingleEventModel which represents new SingleEvent properties.
+        ///     SingleEventModel which represents new SingleEvent properties.
         /// </param>
         /// <returns>
-        /// Returns 200.
+        ///     Returns 200.
         /// </returns>
         [HttpPost]
         public IActionResult PostEvent([FromBody] SingleEventModel singleEventModel)
@@ -50,16 +49,16 @@ namespace UltricoCalendarApi.Controllers
         }
 
         /// <summary>
-        /// Edits SingleEvent of given id with new properties.
+        ///     Edits SingleEvent of given id with new properties.
         /// </summary>
         /// <param name="id">
-        /// Id of SingleEvent to edit.
+        ///     Id of SingleEvent to edit.
         /// </param>
         /// <param name="singleEventModel">
-        /// Model which represents new properties of SingleEvent.
+        ///     Model which represents new properties of SingleEvent.
         /// </param>
         /// <returns>
-        /// Returns 200.
+        ///     Returns 200.
         /// </returns>
         [HttpPost("edit/{id}")]
         public IActionResult EditEvent(int id, [FromBody] SingleEventModel singleEventModel)
@@ -70,13 +69,13 @@ namespace UltricoCalendarApi.Controllers
         }
 
         /// <summary>
-        /// Deletes SingleEvent from database.
+        ///     Deletes SingleEvent from database.
         /// </summary>
         /// <param name="id">
-        /// Id of SingleEvent to delete.
+        ///     Id of SingleEvent to delete.
         /// </param>
         /// <returns>
-        /// Returns 200.
+        ///     Returns 200.
         /// </returns>
         [HttpDelete("{id}")]
         public IActionResult DeleteSingleEvent(int id)

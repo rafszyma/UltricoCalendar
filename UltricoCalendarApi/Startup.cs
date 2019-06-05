@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using UltricoCalendarCommon;
+using UltricoApiCommon;
 
 namespace UltricoCalendarApi
 {
@@ -12,7 +12,8 @@ namespace UltricoCalendarApi
     {
         private const int ResolveOneTimeout = 1;
 
-        public Startup(IConfiguration configuration, IHostingEnvironment env) : base(configuration, env, new CalendarApiSettings())
+        public Startup(IConfiguration configuration, IHostingEnvironment env) : base(configuration, env,
+            new CalendarApiSettings())
         {
         }
 
@@ -21,10 +22,10 @@ namespace UltricoCalendarApi
         protected override void GetActor(ActorSystem system)
         {
             ServiceActorRefs.CalendarServiceActor = system
-                .ActorSelection(((CalendarApiSettings)ApiSettings).CalendarServiceActorUrl)
+                .ActorSelection(((CalendarApiSettings) ApiSettings).CalendarServiceActorUrl)
                 .ResolveOne(TimeSpan.FromSeconds(ResolveOneTimeout)).Result;
             ServiceActorRefs.CalendarQueryActor = system
-                .ActorSelection(((CalendarApiSettings)ApiSettings).CalendarQueryActorUrl)
+                .ActorSelection(((CalendarApiSettings) ApiSettings).CalendarQueryActorUrl)
                 .ResolveOne(TimeSpan.FromSeconds(ResolveOneTimeout)).Result;
         }
 

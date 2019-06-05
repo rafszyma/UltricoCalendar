@@ -24,11 +24,6 @@ namespace UltricoCalendarService.Service
             _eventFromSeriesRepository = eventFromSeriesRepository;
         }
 
-        public int ExcludeEventFromSeries(int seriesId, ICalendarEvent newEventModel)
-        {
-            return _eventSeriesRepository.ExcludeEventFromSeries(seriesId, (EventFromSeries)newEventModel.ToEntity());
-        }
-
         public ICalendarEvent GetEventFromSeries(int id)
         {
             return (EventFromSeriesModel) _eventFromSeriesRepository.GetEventFromSeries(id).ToBaseModel();
@@ -44,6 +39,11 @@ namespace UltricoCalendarService.Service
         public bool DeleteEventFromSeries(int id)
         {
             return _eventFromSeriesRepository.DeleteEventFromSeries(id);
+        }
+
+        public int ExcludeEventFromSeries(int seriesId, ICalendarEvent newEventModel)
+        {
+            return _eventSeriesRepository.ExcludeEventFromSeries(seriesId, (EventFromSeries) newEventModel.ToEntity());
         }
 
         public void DeleteEventOccurenceFromSeries(int seriesId, DateTime dateTime)

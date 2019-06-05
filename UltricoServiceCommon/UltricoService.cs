@@ -6,6 +6,7 @@ using Akka.DI.AutoFac;
 using Autofac;
 using Microsoft.Extensions.Configuration;
 using Serilog;
+using UltricoCalendarCommon.Settings;
 
 namespace UltricoCalendarCommon
 {

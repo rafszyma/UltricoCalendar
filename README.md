@@ -2,7 +2,7 @@
 
 **TODO:**
 1. Move more properties to config - **done**
-2. Split Common project for API and Service logic (it's either this or this so there is no need to have both in one DLL)
+2. Split Common project for API and Service logic (it's either this or this so there is no need to have both in one DLL) **done**
 3. Comment Swagger properly - **done**
 4. Validate models with correct attributes - **done**
 5. Add failchecks

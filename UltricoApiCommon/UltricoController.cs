@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using UltricoCalendarCommon.Validators;
+using UltricoApiCommon.Validators;
 
-namespace UltricoCalendarCommon
+namespace UltricoApiCommon
 {
     [ValidateModel]
     public abstract class UltricoController : Controller

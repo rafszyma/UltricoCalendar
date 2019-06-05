@@ -1,8 +1,7 @@
 using System;
-using System.Threading.Tasks;
 using Akka.Actor;
 using Microsoft.AspNetCore.Mvc;
-using UltricoCalendarCommon;
+using UltricoApiCommon;
 using UltricoCalendarContracts;
 using UltricoCalendarContracts.Entities;
 using UltricoCalendarContracts.Models;
@@ -10,19 +9,19 @@ using UltricoCalendarContracts.Models;
 namespace UltricoCalendarApi.Controllers
 {
     /// <summary>
-    /// CRUD operations on EventSeries and creation of EventsFromSeries as well as deleting single occurence
+    ///     CRUD operations on EventSeries and creation of EventsFromSeries as well as deleting single occurence
     /// </summary>
     [Route("series")]
     public class EventSeriesController : UltricoController
     {
         /// <summary>
-        /// Gets event series of certain id.
+        ///     Gets event series of certain id.
         /// </summary>
         /// <param name="id">
-        /// Id of event series we want to get.
+        ///     Id of event series we want to get.
         /// </param>
         /// <returns>
-        /// Returns EventSeriesModel which represents EventSeries in database.
+        ///     Returns EventSeriesModel which represents EventSeries in database.
         /// </returns>
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(EventSeries), 200)]
@@ -34,13 +33,13 @@ namespace UltricoCalendarApi.Controllers
         }
 
         /// <summary>
-        /// Creates new event series.
+        ///     Creates new event series.
         /// </summary>
         /// <param name="eventSeriesModel">
-        /// Model of new EventSeries we want to add to database.
+        ///     Model of new EventSeries we want to add to database.
         /// </param>
         /// <returns>
-        /// Returns 200.
+        ///     Returns 200.
         /// </returns>
         [HttpPost]
         public IActionResult PostEventSeries([FromBody] EventSeriesModel eventSeriesModel)
@@ -51,16 +50,16 @@ namespace UltricoCalendarApi.Controllers
         }
 
         /// <summary>
-        /// Edits certain EventSeries with new properties.
+        ///     Edits certain EventSeries with new properties.
         /// </summary>
         /// <param name="id">
-        /// Id of event series we want to edit.
+        ///     Id of event series we want to edit.
         /// </param>
         /// <param name="eventSeriesModel">
-        /// Model with new parameters of our event series.
+        ///     Model with new parameters of our event series.
         /// </param>
         /// <returns>
-        /// Returns 200.
+        ///     Returns 200.
         /// </returns>
         [HttpPost("edit/{id}")]
         public IActionResult EditSeries(int id, [FromBody] EventSeriesModel eventSeriesModel)
@@ -71,13 +70,13 @@ namespace UltricoCalendarApi.Controllers
         }
 
         /// <summary>
-        /// Deletes EventSeries from database of given id.
+        ///     Deletes EventSeries from database of given id.
         /// </summary>
         /// <param name="id">
-        /// Id of EventSeries to delete.
+        ///     Id of EventSeries to delete.
         /// </param>
         /// <returns>
-        /// Returns 200.
+        ///     Returns 200.
         /// </returns>
         [HttpDelete("{id}")]
         public IActionResult DeleteEventSeries(int id)
@@ -86,18 +85,18 @@ namespace UltricoCalendarApi.Controllers
             ServiceActorRefs.CalendarServiceActor.Tell(command);
             return Ok();
         }
-        
+
         /// <summary>
-        /// Excludes single event from series and create EventFromSeries model in database which can be edited separately.
+        ///     Excludes single event from series and create EventFromSeries model in database which can be edited separately.
         /// </summary>
         /// <param name="eventFromSeriesModel">
-        /// EventFromSeries model which specify which event we want to exclude and what new properties we want to set.
+        ///     EventFromSeries model which specify which event we want to exclude and what new properties we want to set.
         /// </param>
         /// <param name="seriesId">
-        /// Id of series we want to exclude event from.
+        ///     Id of series we want to exclude event from.
         /// </param>
         /// <returns>
-        /// Returns 200.
+        ///     Returns 200.
         /// </returns>
         [HttpPost("editEventFromSeries/{seriesId}")]
         public IActionResult ExcludeEventFromSeries([FromBody] EventFromSeriesModel eventFromSeriesModel,
@@ -108,18 +107,18 @@ namespace UltricoCalendarApi.Controllers
             ServiceActorRefs.CalendarServiceActor.Tell(command);
             return Ok();
         }
-        
+
         /// <summary>
-        /// Deletes single event occurence from the series.
+        ///     Deletes single event occurence from the series.
         /// </summary>
         /// <param name="seriesId">
-        /// Id of the series we want to delete occurence from.
+        ///     Id of the series we want to delete occurence from.
         /// </param>
         /// <param name="dateTime">
-        /// DateTime of certain event occurence.
+        ///     DateTime of certain event occurence.
         /// </param>
         /// <returns>
-        /// Returns 200.
+        ///     Returns 200.
         /// </returns>
         [HttpDelete("{seriesId}")]
         public IActionResult DeleteEventOccurenceFromSeries(int seriesId, [FromQuery] DateTime dateTime)

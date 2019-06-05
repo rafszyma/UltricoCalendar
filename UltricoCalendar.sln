@@ -2,13 +2,15 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltricoCalendarApi", "UltricoCalendarApi\UltricoCalendarApi.csproj", "{7245F6DB-03EF-4297-AA1C-CD3159E44F68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltricoCalendarCommon", "UltricoCalendarCommon\UltricoCalendarCommon.csproj", "{B7E75936-45BB-4700-BF26-DDC8FB195731}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltricoServiceCommon", "UltricoServiceCommon\UltricoServiceCommon.csproj", "{B7E75936-45BB-4700-BF26-DDC8FB195731}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltricoCalendarContracts", "UltricoCalendarContracts\UltricoCalendarContracts.csproj", "{6200729F-99F6-4EC5-99E6-D78677A41ABA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltricoCalendarTest", "UltricoCalendarTest\UltricoCalendarTest.csproj", "{467F1C51-ADDD-4080-827E-69EAB0BCA590}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltricoCalendarService", "UltricoCalendarService\UltricoCalendarService.csproj", "{52AC27B1-F154-410D-B55B-D9C193FB7C9C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltricoApiCommon", "UltricoApiCommon\UltricoApiCommon.csproj", "{70C97F2C-CE0C-40B5-BB16-2D7C954A6D89}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +38,9 @@ Global
 		{52AC27B1-F154-410D-B55B-D9C193FB7C9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52AC27B1-F154-410D-B55B-D9C193FB7C9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52AC27B1-F154-410D-B55B-D9C193FB7C9C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70C97F2C-CE0C-40B5-BB16-2D7C954A6D89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70C97F2C-CE0C-40B5-BB16-2D7C954A6D89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70C97F2C-CE0C-40B5-BB16-2D7C954A6D89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70C97F2C-CE0C-40B5-BB16-2D7C954A6D89}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

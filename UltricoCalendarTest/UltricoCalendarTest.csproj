@@ -15,8 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\UltricoCalendarCommon\UltricoCalendarCommon.csproj" />
     <ProjectReference Include="..\UltricoCalendarService\UltricoCalendarService.csproj" />
+    <ProjectReference Include="..\UltricoServiceCommon\UltricoServiceCommon.csproj" />
   </ItemGroup>
 
 </Project>

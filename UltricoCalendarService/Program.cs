@@ -1,5 +1,6 @@
 ﻿using System;
 using UltricoCalendarCommon;
+using UltricoCalendarCommon.Settings;
 
 namespace UltricoCalendarService
 {

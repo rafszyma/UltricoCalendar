@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace UltricoCalendarCommon.Validators
+namespace UltricoApiCommon.Validators
 {
     #region
 

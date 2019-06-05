@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace UltricoCalendarCommon.Validators
+namespace UltricoApiCommon.Validators
 {
     public class ValidateModelAttribute : ActionFilterAttribute
     {

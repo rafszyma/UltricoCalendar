@@ -1,29 +1,28 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Akka.Actor;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Swagger;
-using UltricoCalendarCommon;
+using UltricoApiCommon;
 using UltricoCalendarContracts;
 using UltricoCalendarContracts.Models;
 
 namespace UltricoCalendarApi.Controllers
 {
     /// <summary>
-    /// Controller used to get events metadata needed for frontend display.
+    ///     Controller used to get events metadata needed for frontend display.
     /// </summary>
     public class CalendarController : UltricoController
     {
         /// <summary>
-        /// Gets all events metadata from certain period of time to show on calendar frontend.
+        ///     Gets all events metadata from certain period of time to show on calendar frontend.
         /// </summary>
         /// <param name="from">
-        /// Start DateTime of period to look for events.
+        ///     Start DateTime of period to look for events.
         /// </param>
         /// <param name="to">
-        /// End DateTime of period to look for events.</param>
+        ///     End DateTime of period to look for events.
+        /// </param>
         /// <returns>
-        /// EventMetadata structure with times, durations and titles of events.
+        ///     EventMetadata structure with times, durations and titles of events.
         /// </returns>
         [HttpGet("getEventsMetadata")]
         [ProducesResponseType(typeof(EventMetadata), 200)]

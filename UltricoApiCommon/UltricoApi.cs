@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace UltricoCalendarCommon
+namespace UltricoApiCommon
 {
     public abstract class UltricoApi
     {
@@ -29,7 +29,7 @@ namespace UltricoCalendarCommon
                 .Build();
             configuration.Bind(apiSettings);
             ApiSettings = apiSettings;
-            
+
             // Logger
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()

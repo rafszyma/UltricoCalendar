@@ -1,11 +1,11 @@
-namespace UltricoCalendarCommon
+﻿namespace UltricoCalendarCommon.Settings
 {
-    public class UltricoSettings
+    public class UltricoServiceSettings
     {
         public string LogEnvironment { get; set; }
-        
+
         public string AkkaSystemName { get; set; }
-        
+
         public string HoconPath { get; set; }
     }
 }

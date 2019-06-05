@@ -83,7 +83,8 @@ namespace UltricoCalendarService.Repositories
         {
             using (var db = new CalendarDbContext())
             {
-                var eventSeries = db.EventSeries.Where(x => x.Start > from && x.Start < to).Include(x => x.EditedEvents).ToList();
+                var eventSeries = db.EventSeries.Where(x => x.Start > from && x.Start < to).Include(x => x.EditedEvents)
+                    .ToList();
                 return eventSeries;
             }
         }
