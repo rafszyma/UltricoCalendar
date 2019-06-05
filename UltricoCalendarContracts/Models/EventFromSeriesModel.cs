@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using UltricoCalendarContracts.Entities;
 using UltricoCalendarContracts.Extensions;
 
@@ -11,6 +12,7 @@ namespace UltricoCalendarContracts.Models
             OldStartDate = oldStartDate;
         }
 
+        [DataType(DataType.DateTime)]
         private DateTime OldStartDate { get; }
 
         public override CalendarEvent ToEntity()

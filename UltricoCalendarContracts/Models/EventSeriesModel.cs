@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using UltricoCalendarContracts.Entities;
 using UltricoCalendarContracts.Enums;
 using UltricoCalendarContracts.Extensions;
@@ -8,8 +9,10 @@ namespace UltricoCalendarContracts.Models
 {
     public class EventSeriesModel : BaseEventModel
     {
+        [Required]
         public RepeatPeriod RepeatPeriod { get; set; }
 
+        [Required]
         public FinishEnum FinishEnum { get; set; }
 
         public int? OccursAmount { get; set; }
