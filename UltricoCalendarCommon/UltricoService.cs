@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Akka.Actor;
 using Akka.Configuration;
 using Akka.DI.AutoFac;
@@ -52,7 +53,6 @@ namespace UltricoCalendarCommon
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.Console()
-                .Enrich.WithProperty("Diag.Application", _serviceName)
                 .CreateLogger();
 
             Log.Information($"Using Serilog logger for {_serviceName}");
@@ -77,19 +77,8 @@ namespace UltricoCalendarCommon
         {
             try
             {
-                var config = ConfigurationFactory.ParseString(@"
-akka {  
-    actor {
-        provider = remote
-    }
-    remote {
-        dot-netty.tcp {
-            port = 8081 #bound to a specific port
-            hostname = localhost
-        }
-    }
-}");
-                _actorSystem = ActorSystem.Create("ultrico-calendar", config);
+                var config = ConfigurationFactory.ParseString(File.ReadAllText("service.hocon"));
+                _actorSystem = ActorSystem.Create(_serviceSettings.AkkaSystemName, config);
                 if (Container != null) new AutoFacDependencyResolver(Container, _actorSystem);
             }
             catch (Exception ex)

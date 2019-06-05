@@ -12,7 +12,7 @@ namespace UltricoCalendarApi
     {
         private const int ResolveOneTimeout = 1;
 
-        public Startup(IConfiguration configuration, IHostingEnvironment env) : base(configuration, env)
+        public Startup(IConfiguration configuration, IHostingEnvironment env) : base(configuration, env, new CalendarApiSettings())
         {
         }
 
@@ -21,10 +21,10 @@ namespace UltricoCalendarApi
         protected override void GetActor(ActorSystem system)
         {
             ServiceActorRefs.CalendarServiceActor = system
-                .ActorSelection("akka.tcp://ultrico-calendar@localhost:8081/user/calendar-actor")
+                .ActorSelection(((CalendarApiSettings)ApiSettings).CalendarServiceActorUrl)
                 .ResolveOne(TimeSpan.FromSeconds(ResolveOneTimeout)).Result;
             ServiceActorRefs.CalendarQueryActor = system
-                .ActorSelection("akka.tcp://ultrico-calendar@localhost:8081/user/query-actor")
+                .ActorSelection(((CalendarApiSettings)ApiSettings).CalendarQueryActorUrl)
                 .ResolveOne(TimeSpan.FromSeconds(ResolveOneTimeout)).Result;
         }
 

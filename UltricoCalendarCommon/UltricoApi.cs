@@ -14,27 +14,26 @@ namespace UltricoCalendarCommon
 {
     public abstract class UltricoApi
     {
-        protected readonly UltricoApiSettings ApiSettings = new UltricoApiSettings();
+        protected readonly UltricoApiSettings ApiSettings;
 
         protected readonly IHostingEnvironment Env;
 
-        protected UltricoApi(IConfiguration args, IHostingEnvironment env)
+        protected UltricoApi(IConfiguration args, IHostingEnvironment env, UltricoApiSettings apiSettings)
         {
             Console.Title = ApiName;
             Env = env;
 
             var configuration = new ConfigurationBuilder().SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", true, true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", true)
                 .AddEnvironmentVariables()
                 .Build();
-            configuration.Bind(ApiSettings);
-
+            configuration.Bind(apiSettings);
+            ApiSettings = apiSettings;
+            
             // Logger
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
                 .WriteTo.Console()
-                .Enrich.WithProperty("Diag.Application", ApiName)
                 .CreateLogger();
 
             Log.Information($"Running {ApiName}");
@@ -46,21 +45,10 @@ namespace UltricoCalendarCommon
 
         protected void RunActorSystem()
         {
-            var config = ConfigurationFactory.ParseString(@"
-akka {  
-    actor {
-        provider = remote
-    }
-    remote {
-        dot-netty.tcp {
-            port = 0 # bound to a dynamic port assigned by the OS
-            hostname = localhost
-        }
-    }
-}");
+            var config = ConfigurationFactory.ParseString(File.ReadAllText(ApiSettings.HoconPath));
             // Akka
 
-            GetActor(ActorSystem.Create("ultrico-calendar", config));
+            GetActor(ActorSystem.Create(ApiSettings.AkkaSystemName, config));
         }
 
         protected void ConfigureSwagger(IServiceCollection services)

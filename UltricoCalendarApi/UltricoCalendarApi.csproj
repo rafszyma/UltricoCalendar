@@ -45,4 +45,11 @@
     <ProjectReference Include="..\UltricoCalendarCommon\UltricoCalendarCommon.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <None Update="api.hocon">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

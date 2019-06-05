@@ -22,4 +22,17 @@
     <ProjectReference Include="..\UltricoCalendarCommon\UltricoCalendarCommon.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="appsettings.json">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="service.hocon">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
