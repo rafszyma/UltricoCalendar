@@ -5,7 +5,7 @@
 2. Split Common project for API and Service logic (it's either this or this so there is no need to have both in one DLL) **done**
 3. Comment Swagger properly - **done**
 4. Validate models with correct attributes - **done**
-5. Add failchecks
+5. Add failchecks, wait for answers and return proper HttpCode
 6. Rethink encapsulation - **done**
 7. Test EventFromSeries CRUD operations. - **done**
 8. Return Ids for easier checks - **done**
