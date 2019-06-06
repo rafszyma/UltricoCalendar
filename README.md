@@ -6,7 +6,7 @@
 3. Comment Swagger properly - **done**
 4. Validate models with correct attributes - **done**
 5. Add failchecks
-6. Rethink encapsulation
+6. Rethink encapsulation - **done**
 7. Test EventFromSeries CRUD operations. - **done**
 8. Return Ids for easier checks - **done**
 9. Change Enum serialization to string - **done**
