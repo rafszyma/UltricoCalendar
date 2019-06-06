@@ -11,6 +11,6 @@ namespace UltricoCalendarContracts.Interfaces.Repository
         EventSeries UpdateEventSeries(EventSeries editedEventSeries);
         int ExcludeEventFromSeries(int seriesId, EventFromSeries eventToExclude);
         bool DeleteEventSeries(int id);
-        List<EventSeries> GetEventSeries(DateTime from, DateTime to);
+        List<EventSeries> GetEventSeries(DateTime to);
     }
 }

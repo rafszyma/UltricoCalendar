@@ -79,11 +79,12 @@ namespace UltricoCalendarService.Repositories
             }
         }
 
-        public List<EventSeries> GetEventSeries(DateTime from, DateTime to)
+        public List<EventSeries> GetEventSeries(DateTime to)
         {
             using (var db = new CalendarDbContext())
             {
-                var eventSeries = db.EventSeries.Where(x => x.Start > from && x.Start < to).Include(x => x.EditedEvents)
+                // not getting from because it may be starting before
+                var eventSeries = db.EventSeries.Where(x => x.Start < to).Include(x => x.EditedEvents)
                     .ToList();
                 return eventSeries;
             }

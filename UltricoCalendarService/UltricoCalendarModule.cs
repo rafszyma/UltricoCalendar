@@ -1,6 +1,9 @@
+using System;
 using Akka.Actor;
 using Autofac;
 using UltricoCalendarCommon;
+using UltricoCalendarCommon.Settings;
+using UltricoCalendarContracts;
 using UltricoCalendarContracts.Interfaces.Repository;
 using UltricoCalendarContracts.Interfaces.Service;
 using UltricoCalendarService.Actors;
@@ -19,6 +22,8 @@ namespace UltricoCalendarService
         {
             CalendarActor.Create(system);
             QueryActor.Create(system);
+            EmailActor.Create(system);
+            system.Scheduler.ScheduleTellRepeatedly(TimeSpan.Zero, TimeSpan.FromMinutes(1), system.ActorOf(EmailActor.Props, "email-actor"),new Commands.SendEmailCommand(DateTime.Now, DateTime.Now.AddMinutes(15)), ActorRefs.NoSender);
         }
 
         protected override void Load(ContainerBuilder builder)

@@ -26,7 +26,7 @@ namespace UltricoCalendarApi.Controllers
         [ProducesResponseType(typeof(SingleEvent), 200)]
         public IActionResult GetEvent(int id)
         {
-            var query = new Queries.EventQueries<SingleEvent>.Get(id);
+            var query = new Queries.SingleEventQueries.Get(id);
             var result = ServiceActorRefs.CalendarQueryActor.Ask(query).GetAwaiter().GetResult();
             return Ok(result);
         }
@@ -43,7 +43,7 @@ namespace UltricoCalendarApi.Controllers
         [HttpPost]
         public IActionResult PostEvent([FromBody] SingleEventModel singleEventModel)
         {
-            var command = new Commands.EventCommands<SingleEventModel>.Add(singleEventModel);
+            var command = new Commands.SingleEventCommands.Add(singleEventModel);
             ServiceActorRefs.CalendarServiceActor.Tell(command);
             return Ok();
         }
@@ -63,7 +63,7 @@ namespace UltricoCalendarApi.Controllers
         [HttpPost("edit/{id}")]
         public IActionResult EditEvent(int id, [FromBody] SingleEventModel singleEventModel)
         {
-            var command = new Commands.EventCommands<SingleEventModel>.Update(id, singleEventModel);
+            var command = new Commands.SingleEventCommands.Update(id, singleEventModel);
             ServiceActorRefs.CalendarServiceActor.Tell(command);
             return Ok();
         }
@@ -80,7 +80,7 @@ namespace UltricoCalendarApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteSingleEvent(int id)
         {
-            var command = new Commands.EventCommands<SingleEventModel>.Delete(id);
+            var command = new Commands.SingleEventCommands.Delete(id);
             ServiceActorRefs.CalendarServiceActor.Tell(command);
             return Ok();
         }

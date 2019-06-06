@@ -13,16 +13,19 @@ namespace UltricoCalendarContracts.Occurences
 
         public DateTime TimeWhenFinished { get; }
 
-        public override IEnumerable<DateTime> Occur(RepeatPeriod repeatPeriod, DateTime repeatFrom, DateTime repeatTill)
+        public override IEnumerable<DateTime> Occur(RepeatPeriod repeatPeriod, DateTime eventStart, DateTime repeatFrom, DateTime repeatTill)
         {
             var occurrences = new List<DateTime>();
-            var latestTime = repeatFrom;
-            DateTime earlierEnd;
-            earlierEnd = DateTime.Compare(repeatTill, TimeWhenFinished) < 0 ? repeatTill : TimeWhenFinished;
+            var latestTime = eventStart;
+            var effectiveEnd = DateTime.Compare(repeatTill, TimeWhenFinished) < 0 ? repeatTill : TimeWhenFinished;
 
-            while (latestTime < TimeWhenFinished || latestTime < earlierEnd)
+            while (latestTime < effectiveEnd)
             {
-                occurrences.Add(latestTime);
+                if (latestTime > repeatFrom)
+                {
+                    occurrences.Add(latestTime);
+                }
+
                 latestTime = latestTime.Add(repeatPeriod.NextOccurence(latestTime).Subtract(latestTime));
             }
 

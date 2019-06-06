@@ -26,7 +26,7 @@ namespace UltricoCalendarApi.Controllers
         [ProducesResponseType(typeof(EventFromSeries), 200)]
         public IActionResult GetEventFromSeries(int id)
         {
-            var query = new Queries.EventQueries<EventFromSeries>.Get(id);
+            var query = new Queries.EventFromSeriesQueries.Get(id);
             var result = ServiceActorRefs.CalendarQueryActor.Ask(query).GetAwaiter().GetResult();
             return Ok(result);
         }
@@ -47,7 +47,7 @@ namespace UltricoCalendarApi.Controllers
         public IActionResult EditEventFromSeries(int id,
             [FromBody] EventFromSeriesModel eventFromSeriesModel)
         {
-            var command = new Commands.EventCommands<EventFromSeriesModel>.Update(id, eventFromSeriesModel);
+            var command = new Commands.EventFromSeriesCommands.Update(id, eventFromSeriesModel);
             ServiceActorRefs.CalendarServiceActor.Tell(command);
             return Ok();
         }
@@ -64,7 +64,7 @@ namespace UltricoCalendarApi.Controllers
         [HttpDelete("{id}")]
         public IActionResult DeleteEventFromSeries(int id)
         {
-            var command = new Commands.EventCommands<EventFromSeriesModel>.Delete(id);
+            var command = new Commands.EventFromSeriesCommands.Delete(id);
             ServiceActorRefs.CalendarServiceActor.Tell(command);
             return Ok();
         }

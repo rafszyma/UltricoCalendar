@@ -13,14 +13,18 @@ namespace UltricoCalendarContracts.Occurences
 
         public int MaxTimesToOccur { get; }
 
-        public override IEnumerable<DateTime> Occur(RepeatPeriod repeatPeriod, DateTime repeatFrom, DateTime repeatTill)
+        public override IEnumerable<DateTime> Occur(RepeatPeriod repeatPeriod, DateTime eventStart, DateTime repeatFrom, DateTime repeatTill)
         {
-            var latestDate = repeatFrom;
+            var latestDate = eventStart;
             var occurrences = new List<DateTime>();
             var timesToOccur = MaxTimesToOccur;
             while (timesToOccur > 0 && latestDate <= repeatTill)
             {
-                occurrences.Add(latestDate);
+                if (latestDate > repeatFrom)
+                {
+                    occurrences.Add(latestDate);
+                }
+
                 latestDate = latestDate.Add(repeatPeriod.NextOccurence(latestDate).Subtract(latestDate));
                 timesToOccur--;
             }

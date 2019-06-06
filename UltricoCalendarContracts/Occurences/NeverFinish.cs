@@ -6,13 +6,17 @@ namespace UltricoCalendarContracts.Occurences
 {
     public class NeverFinish : FinishClass
     {
-        public override IEnumerable<DateTime> Occur(RepeatPeriod repeatPeriod, DateTime repeatFrom, DateTime repeatTill)
+        public override IEnumerable<DateTime> Occur(RepeatPeriod repeatPeriod, DateTime eventStart, DateTime repeatFrom, DateTime repeatTill)
         {
             var occurrences = new List<DateTime>();
-            var latestTime = repeatFrom;
+            var latestTime = eventStart;
             while (latestTime < repeatTill)
             {
-                occurrences.Add(latestTime);
+                if (latestTime > repeatFrom)
+                {
+                    occurrences.Add(latestTime);
+                }
+
                 latestTime = latestTime.Add(repeatPeriod.NextOccurence(latestTime).Subtract(latestTime));
             }
 

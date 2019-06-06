@@ -25,7 +25,7 @@ namespace UltricoCalendarContracts.Entities
 
         public EventMetadata ToMetadata(DateTime from, DateTime to)
         {
-            var allEventOccurrences = Finish.Occur(RepeatPeriod, Start, to).ToList();
+            var allEventOccurrences = Finish.Occur(RepeatPeriod, Start, from, to).ToList();
             allEventOccurrences.RemoveAll(x => DeletedOccurrences.Contains(x));
             allEventOccurrences.RemoveAll(x => EditedEvents.Select(y => y.OldStartDate).Contains(x));
             return new EventMetadata

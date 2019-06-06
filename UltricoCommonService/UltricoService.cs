@@ -18,14 +18,14 @@ namespace UltricoCalendarCommon
 
         private readonly string _serviceName;
 
-        private readonly UltricoServiceSettings _serviceSettings;
+        public static UltricoServiceSettings ServiceSettings { get; private set; }
         private ActorSystem _actorSystem;
 
         public UltricoService(string serviceName, UltricoModule serviceModule, UltricoServiceSettings serviceSettings)
         {
             _serviceName = serviceName;
             _serviceModule = serviceModule;
-            _serviceSettings = serviceSettings;
+            ServiceSettings = serviceSettings;
         }
 
         public void RegisterService()
@@ -46,7 +46,7 @@ namespace UltricoCalendarCommon
                 .AddEnvironmentVariables()
                 .Build();
 
-            configuration.Bind(_serviceSettings);
+            configuration.Bind(ServiceSettings);
         }
 
         private void SetupLogger()
@@ -63,8 +63,8 @@ namespace UltricoCalendarCommon
         {
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(_serviceModule);
-            containerBuilder.RegisterInstance(_serviceSettings);
-            containerBuilder.RegisterInstance(_serviceSettings).AsSelf();
+            containerBuilder.RegisterInstance(ServiceSettings);
+            containerBuilder.RegisterInstance(ServiceSettings).AsSelf();
             _container = containerBuilder.Build();
             UltricoModule.IoCContainer = _container;
         }
@@ -79,7 +79,7 @@ namespace UltricoCalendarCommon
             try
             {
                 var config = ConfigurationFactory.ParseString(File.ReadAllText("service.hocon"));
-                _actorSystem = ActorSystem.Create(_serviceSettings.AkkaSystemName, config);
+                _actorSystem = ActorSystem.Create(ServiceSettings.AkkaSystemName, config);
                 _actorSystem.UseAutofac(_container);
             }
             catch (Exception ex)

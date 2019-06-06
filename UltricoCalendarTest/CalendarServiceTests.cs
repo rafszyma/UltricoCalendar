@@ -374,6 +374,8 @@ namespace UltricoCalendarTest
             }
         }
 
+        [Fact]public void TestIfGetsCalendarMetadataIfOccursAfterStart() {}
+
         [Fact]
         public void TestIfGetsEditedEventFromSeries()
         {

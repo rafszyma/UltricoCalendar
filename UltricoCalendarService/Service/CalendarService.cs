@@ -12,7 +12,6 @@ namespace UltricoCalendarService.Service
     public class CalendarService : ISingleEventService, IEventSeriesService, IEventFromSeriesService, IMetadataService
     {
         private readonly IEventFromSeriesRepository _eventFromSeriesRepository;
-
         private readonly IEventSeriesRepository _eventSeriesRepository;
         private readonly ISingleEventRepository _singleEventRepository;
 
@@ -80,7 +79,7 @@ namespace UltricoCalendarService.Service
         {
             var result = new List<EventMetadata>();
             result.AddRange(_singleEventRepository.GetSingleEvents(from, to).Select(x => x.ToMetadata(from, to)));
-            result.AddRange(_eventSeriesRepository.GetEventSeries(from, to).Select(x => x.ToMetadata(from, to)));
+            result.AddRange(_eventSeriesRepository.GetEventSeries(to).Select(x => x.ToMetadata(from, to)));
             result.AddRange(_eventFromSeriesRepository.GetEventFromSeries(from, to)
                 .Select(x => x.ToMetadata(from, to)));
 
