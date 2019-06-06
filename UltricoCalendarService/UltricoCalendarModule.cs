@@ -22,13 +22,19 @@ namespace UltricoCalendarService
         {
             CalendarActor.Create(system);
             QueryActor.Create(system);
-            EmailActor.Create(system);
-            system.Scheduler.ScheduleTellRepeatedly(TimeSpan.Zero, TimeSpan.FromMinutes(1), system.ActorOf(EmailActor.Props, "email-actor"),new Commands.SendEmailCommand(DateTime.Now, DateTime.Now.AddMinutes(15)), ActorRefs.NoSender);
+            
+            // TODO take FromMinutes value from config
+            system.Scheduler.ScheduleTellRepeatedly(TimeSpan.Zero, TimeSpan.FromMinutes(1), EmailActor.Create(system), new Commands.SendEmailCommand(), ActorRefs.NoSender);
         }
 
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<CalendarServiceSettings>().PropertiesAutowired().SingleInstance().AsSelf();
             builder.RegisterType<CalendarActor>().PropertiesAutowired().AsSelf();
+            builder.RegisterType<QueryActor>().PropertiesAutowired().AsSelf();
+            builder.RegisterType<EmailActor>().PropertiesAutowired().AsSelf();
+
+            builder.RegisterType<EmailNotificationService>().As<IEmailNotificationService>().PropertiesAutowired();
             builder.RegisterType<CalendarService>().As<ISingleEventService>().PropertiesAutowired();
             builder.RegisterType<CalendarService>().As<IEventSeriesService>().PropertiesAutowired();
             builder.RegisterType<CalendarService>().As<IEventFromSeriesService>().PropertiesAutowired();

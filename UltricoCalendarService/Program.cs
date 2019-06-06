@@ -11,7 +11,7 @@ namespace UltricoCalendarService
         private static void Main(string[] args)
         {
             Console.Title = ServiceName;
-            new UltricoService(ServiceName, new UltricoCalendarModule(), new UltricoServiceSettings())
+            new UltricoService(ServiceName, new UltricoCalendarModule(), new CalendarServiceSettings())
                 .RegisterService();
         }
     }

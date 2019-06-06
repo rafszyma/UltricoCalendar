@@ -10,4 +10,4 @@
 7. Test EventFromSeries CRUD operations. - **done**
 8. Return Ids for easier checks - **done**
 9. Change Enum serialization to string - **done**
-10. Implement EmailActor
+10. Implement EmailActor - **done**

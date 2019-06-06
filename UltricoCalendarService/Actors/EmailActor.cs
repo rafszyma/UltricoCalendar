@@ -1,3 +1,4 @@
+using System;
 using Akka.Actor;
 using Autofac;
 using UltricoCalendarCommon;
@@ -8,20 +9,22 @@ namespace UltricoCalendarService.Actors
 {
     public class EmailActor : ReceiveActor
     {
-        private readonly IEmailService _emailService =
-            UltricoModule.IoCContainer.Resolve<IEmailService>(); 
+        private readonly IEmailNotificationService _emailNotificationService =
+            UltricoModule.IoCContainer.Resolve<IEmailNotificationService>(); 
+        
         public EmailActor()
         {
             Receive<Commands.SendEmailCommand>(command =>
             {
-                var result = _emailService.SendNotificationEmailsFromPeriod(command.From, command.To);
+                _emailNotificationService.SendNotificationEmailsFromPeriod(DateTime.Now);
             });
         }
-        public static Props Props => Props.Create(() => new QueryActor());
 
-        public static void Create(ActorSystem system)
+        private static Props Props => Props.Create(() => new EmailActor());
+
+        public static IActorRef Create(ActorSystem system)
         {
-            system.ActorOf(Props, "email-actor");
+            return system.ActorOf(Props, "email-actor");
         }
     }
 }

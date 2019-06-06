@@ -82,16 +82,8 @@ namespace UltricoCalendarContracts
             }
         }
 
-        public class SendEmailCommand(DateTime from, DateTime to)
+        public class SendEmailCommand
         {
-            public SendEmailCommand(DateTime from, DateTime to)
-            {
-                From = from;
-                To = to;
-            }
-            public DateTime From { get; }
-            
-            public DateTime To { get; }
         }
     }
 }
