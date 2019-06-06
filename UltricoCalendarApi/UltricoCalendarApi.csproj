@@ -46,8 +46,8 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\UltricoApiCommon\UltricoApiCommon.csproj" />
     <ProjectReference Include="..\UltricoCalendarContracts\UltricoCalendarContracts.csproj" />
+    <ProjectReference Include="..\UltricoCommonApi\UltricoCommonApi.csproj" />
   </ItemGroup>
 
 </Project>
