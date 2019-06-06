@@ -12,7 +12,9 @@ namespace UltricoCalendarContracts.Models
             OldStartDate = oldStartDate;
         }
 
-        [DataType(DataType.DateTime)] private DateTime OldStartDate { get; }
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime OldStartDate { get; set; }
 
         public override CalendarEvent ToEntity()
         {

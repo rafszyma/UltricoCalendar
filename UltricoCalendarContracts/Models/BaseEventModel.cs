@@ -10,7 +10,7 @@ namespace UltricoCalendarContracts.Models
     {
         [Required] public string Title { get; set; }
 
-        [MaxLength(500)] public string Description { get; set; }
+        [MaxLength(500)] public string Description { protected get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]

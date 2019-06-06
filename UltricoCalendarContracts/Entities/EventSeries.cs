@@ -28,8 +28,6 @@ namespace UltricoCalendarContracts.Entities
             var allEventOccurrences = Finish.Occur(RepeatPeriod, Start, to).ToList();
             allEventOccurrences.RemoveAll(x => DeletedOccurrences.Contains(x));
             allEventOccurrences.RemoveAll(x => EditedEvents.Select(y => y.OldStartDate).Contains(x));
-            if (Duration.EventDurationType == DurationType.FullDay)
-                allEventOccurrences = allEventOccurrences.Select(x => x.Date).ToList();
             return new EventMetadata
             {
                 Id = Id,

@@ -27,7 +27,7 @@ namespace UltricoCalendarService.Persistance
             MapEditedSeriesEvents(modelBuilder);
         }
 
-        private void MapEditedSeriesEvents(ModelBuilder modelBuilder)
+        private static void MapEditedSeriesEvents(ModelBuilder modelBuilder)
         {
             var entity = modelBuilder.Entity<EventFromSeries>();
             entity.HasKey(x => x.Id);
@@ -40,7 +40,7 @@ namespace UltricoCalendarService.Persistance
             entity.Property(x => x.EventSeriesId).IsRequired();
         }
 
-        private void MapSingleEvents(ModelBuilder modelBuilder)
+        private static void MapSingleEvents(ModelBuilder modelBuilder)
         {
             var entity = modelBuilder.Entity<SingleEvent>();
             entity.HasKey(x => x.Id);
@@ -52,7 +52,7 @@ namespace UltricoCalendarService.Persistance
                 .HasConversion(ma => ListMapper.ToJson(ma), ma => ListMapper.FromJson(ma));
         }
 
-        private void MapEventSeries(ModelBuilder modelBuilder)
+        private static void MapEventSeries(ModelBuilder modelBuilder)
         {
             var entity = modelBuilder.Entity<EventSeries>();
             entity.HasKey(x => x.Id);

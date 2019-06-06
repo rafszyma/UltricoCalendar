@@ -12,7 +12,7 @@ namespace UltricoCalendarCommon
 {
     public class UltricoService
     {
-        public static IContainer Container;
+        private static IContainer _container;
 
         private readonly UltricoModule _serviceModule;
 
@@ -65,13 +65,13 @@ namespace UltricoCalendarCommon
             containerBuilder.RegisterModule(_serviceModule);
             containerBuilder.RegisterInstance(_serviceSettings);
             containerBuilder.RegisterInstance(_serviceSettings).AsSelf();
-            Container = containerBuilder.Build();
-            UltricoModule.IoCContainer = Container;
+            _container = containerBuilder.Build();
+            UltricoModule.IoCContainer = _container;
         }
 
         private void MigrateDb()
         {
-            _serviceModule.MigrateDatabase(Container);
+            _serviceModule.MigrateDatabase(_container);
         }
 
         private void CreateActorSystem()
@@ -80,7 +80,7 @@ namespace UltricoCalendarCommon
             {
                 var config = ConfigurationFactory.ParseString(File.ReadAllText("service.hocon"));
                 _actorSystem = ActorSystem.Create(_serviceSettings.AkkaSystemName, config);
-                if (Container != null) new AutoFacDependencyResolver(Container, _actorSystem);
+                _actorSystem.UseAutofac(_container);
             }
             catch (Exception ex)
             {
