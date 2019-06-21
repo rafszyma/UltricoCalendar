@@ -16,8 +16,10 @@ namespace UltricoCalendarContracts.Enums
         {
             switch (period)
             {
+                // TODO: HIGH : Better modeled as classes perhaps. You can map incoming model / DB entity to class.
                 case RepeatPeriod.Day:
                     return previousDate.AddDays(1);
+                // TODO: HIGH: Weekly shceduling not complete - explicit days of week was the interesting scenario as mentioned in the task.
                 case RepeatPeriod.Week:
                     return previousDate.AddDays(7);
                 case RepeatPeriod.Month:

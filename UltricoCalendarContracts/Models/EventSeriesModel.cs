@@ -7,6 +7,7 @@ using UltricoCalendarContracts.Occurences;
 
 namespace UltricoCalendarContracts.Models
 {
+
     public class EventSeriesModel : BaseEventModel
     {
         [Required] public RepeatPeriod RepeatPeriod { get; set; }
@@ -20,7 +21,11 @@ namespace UltricoCalendarContracts.Models
         public override CalendarEvent ToEntity()
         {
             FinishClass finishClass = new NeverFinish();
-
+            
+            // TODO: HIGH : Yes, it's ugly :) I think I would:
+            // 1) put it outside of the model - factory perhaps
+            // 2) have the factory accept a mapping of enum -> class / use Di container to register mapping using reflection on app start (implementations would have some interface - we search for implementation with name matching enum)
+            // 3) write good tests that cover this and implementation that don't match any enum - this way noone would add an implementation without adding an enum / remove implementation and leave enum / change names independently.
             // This looks very ugly and is against SOLID but can't think of anything better, there is way to assign logic to Enum value in Java, but can't think of anything better in C#
             switch (FinishEnum)
             {

@@ -30,7 +30,7 @@ namespace UltricoCalendarTest
             _output = output;
         }
 
-
+        // TODO: MEDIUM : Would see those helpers in Object Mother instead. https://martinfowler.com/bliki/ObjectMother.html
         private SingleEventModel TestEventModel()
         {
             return new SingleEventModel
@@ -287,6 +287,8 @@ namespace UltricoCalendarTest
                 var eventModel = TestEventModel();
                 var id = calendarService.AddEvent(eventModel);
                 Assert.True(id > 0);
+                // TODO: HIGH: Calculations in tests - explicit values preferred.
+                
                 var metadata = calendarService.GetMetadata(_startDateTime.AddDays(-1), _startDateTime.AddDays(1)).ToList();
                 var eventMetadata = metadata.First(x => x.Id == id && x.Start.Count() == 1);
                 Assert.True(eventMetadata.Start.First() == _startDateTime);
@@ -305,6 +307,8 @@ namespace UltricoCalendarTest
             }
         }
         
+        // TODO : HIGH: missing explicit information of what is tested in each scenario / can't say how the system
+        // is supposed to work based on test names. The pattern is CheckIfFunctionalityWorks
         [Fact]
         public void TestIfGetsCalendarMetadataForNeverEndingFullDayEventSeriesModel()
         {
@@ -357,6 +361,7 @@ namespace UltricoCalendarTest
             }
         }
         
+        // TODO : HIGH : naming - better: when_specific_event_is_deleted_from_series__it_does_not_return_that_event_when_a_range_encompassign_the_event_is_requested
         [Fact]
         public void TestIfGetsCalendarMetadataForDeletedOccurence()
         {

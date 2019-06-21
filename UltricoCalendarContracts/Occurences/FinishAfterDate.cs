@@ -4,6 +4,7 @@ using UltricoCalendarContracts.Enums;
 
 namespace UltricoCalendarContracts.Occurences
 {
+    // TODO : GOOD : Nice encapsulation of logic in classes.
     public class FinishAfterDate : FinishClass
     {
         public FinishAfterDate(DateTime timeWhenFinished)
@@ -11,8 +12,10 @@ namespace UltricoCalendarContracts.Occurences
             TimeWhenFinished = timeWhenFinished;
         }
 
+        // TODO: MEDIUM : Naming - finish after date  then we switch to time.
         public DateTime TimeWhenFinished { get; }
 
+        // TODO: HIGH: I think the decision to go with events / series etc makes it impossible to use entities here (or 
         public override IEnumerable<DateTime> Occur(RepeatPeriod repeatPeriod, DateTime eventStart, DateTime repeatFrom, DateTime repeatTill)
         {
             var occurrences = new List<DateTime>();

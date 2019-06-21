@@ -11,6 +11,9 @@ namespace UltricoCalendarApi.Controllers
     /// <summary>
     ///     CRUD operations on EventSeries and creation of EventsFromSeries as well as deleting single occurence
     /// </summary>
+    //TODO : HIGH : As API user I think I would prefer to have the domain modeled around events (one time / recurring etc)
+    // This makes it easier to work with the API - less concepts and is more real-world. Unless you find good benefits of
+    // splitting this into series and events from series?
     [Route("series")]
     public class EventSeriesController : UltricoController
     {
@@ -98,6 +101,8 @@ namespace UltricoCalendarApi.Controllers
         /// <returns>
         ///     Returns 200.
         /// </returns>
+        // TODO : HIGH : Very hard to lett what this is doing without looking at the code / docs. IMO a more explicit
+        // approach would be DELETE /
         [HttpPost("editEventFromSeries/{seriesId}")]
         public IActionResult ExcludeEventFromSeries([FromBody] EventFromSeriesModel eventFromSeriesModel,
             int seriesId)

@@ -12,6 +12,8 @@ namespace UltricoCalendarContracts.Extensions
             EventDurationTimeSpan = eventDurationTimeSpan;
         }
 
+        // TODO: GOOD: setters not public :)
+        
         public TimeSpan EventDurationTimeSpan { get; }
 
         public DurationType EventDurationType { get; }

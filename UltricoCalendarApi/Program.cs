@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-
+// TODO: LOW we prefer splitting namespaces with . (.net standard). Ultrico.Calendar.Api.
 namespace UltricoCalendarApi
 {
     public class Program

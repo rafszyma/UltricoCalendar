@@ -8,6 +8,8 @@ using UltricoCalendarContracts.Occurences;
 
 namespace UltricoCalendarContracts.Entities
 {
+    // TODO : HIGH : No constructors / everything public instead
+    
     public class EventSeries : CalendarEvent, ICalendarDisplayable
     {
         public EventSeries()
@@ -15,12 +17,15 @@ namespace UltricoCalendarContracts.Entities
             DeletedOccurrences = new List<DateTime>();
         }
 
+        // TODO : HIGH : Anemic domain model. Logic in extension methods.
         public RepeatPeriod RepeatPeriod { get; set; }
+        
 
         public FinishClass Finish { get; set; }
 
         public virtual List<EventFromSeries> EditedEvents { get; set; }
 
+        // TODO: HIGH : Public lists exposed. If things need to be added to collection a domain specific method can be used.
         public List<DateTime> DeletedOccurrences { get; set; }
 
         public EventMetadata ToMetadata(DateTime from, DateTime to)
@@ -37,6 +42,7 @@ namespace UltricoCalendarContracts.Entities
             };
         }
 
+        // TODO : HIGH : 
         public override BaseEventModel ToBaseModel()
         {
             return new EventSeriesModel

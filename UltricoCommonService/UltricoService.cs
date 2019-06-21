@@ -63,6 +63,7 @@ namespace UltricoCalendarCommon
         {
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(_serviceModule);
+            // TODO: GOOD: Nice registration of settings and using them as dependencies elsewhere!
             containerBuilder.RegisterInstance(ServiceSettings);
             containerBuilder.RegisterInstance(ServiceSettings).AsSelf();
             _container = containerBuilder.Build();

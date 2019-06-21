@@ -12,6 +12,8 @@ namespace UltricoCalendarService.Repositories
     {
         public int AddEventFromSeries(EventFromSeries eventFromSeries)
         {
+            // TODO: MEDIUM : Why not injected and initialized once in scope of request?
+            // Is it created multiple times if we use a few repository methods?
             using (var db = new CalendarDbContext())
             {
                 var entity = db.EditedSeriesEvents.Add(eventFromSeries);

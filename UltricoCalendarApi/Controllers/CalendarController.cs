@@ -24,6 +24,7 @@ namespace UltricoCalendarApi.Controllers
         /// <returns>
         ///     EventMetadata structure with times, durations and titles of events.
         /// </returns>
+        // TODO: HIGH : RPC style naming of RESTful resources
         [HttpGet("getEventsMetadata")]
         [ProducesResponseType(typeof(EventMetadata), 200)]
         public IActionResult GetEvents([FromQuery] DateTime from, [FromQuery] DateTime to)

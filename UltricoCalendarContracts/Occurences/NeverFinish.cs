@@ -10,6 +10,10 @@ namespace UltricoCalendarContracts.Occurences
         {
             var occurrences = new List<DateTime>();
             var latestTime = eventStart;
+            
+            // TODO: HIGH : Not very readable code. I would try to hint the reader that we are trying to find the start time
+            // for generating occurances. Possibly encapsulate the logic in RepeatPeriod to find the closest occurance to a given date and start from there.
+            
             while (latestTime < repeatTill)
             {
                 if (latestTime > repeatFrom)

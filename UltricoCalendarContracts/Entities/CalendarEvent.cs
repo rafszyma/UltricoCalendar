@@ -5,6 +5,8 @@ using UltricoCalendarContracts.Models;
 
 namespace UltricoCalendarContracts.Entities
 {
+    // TODO : HIGH : Looks like external contracts and internal domain concepts are mixed in one repository that is shared
+    // everywhere?
     public abstract class CalendarEvent
     {
         public int Id { get; set; }

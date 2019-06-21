@@ -3,6 +3,7 @@ using UltricoCalendarContracts.Models;
 
 namespace UltricoCalendarContracts
 {
+    // TODO: MEDIUM : Nested classes intead of namespace - I don't see any value, only cost - Uber class that's hard to navigate.
     public class Commands
     {
         public abstract class EventCommands<T> where T : BaseEventModel

@@ -3,6 +3,7 @@ using UltricoCalendarContracts.Occurences;
 
 namespace UltricoCalendarContracts.Enums
 {
+    // TODO: MEDIUM : Enum postfix in enum name. RecurringEventExpirationPolicy RecurringEventFinishPolicy EventSeriesFinishPolicy could be better names.
     public enum FinishEnum
     {
         AfterDate,
