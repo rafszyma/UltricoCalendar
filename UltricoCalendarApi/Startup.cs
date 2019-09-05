@@ -21,12 +21,12 @@ namespace UltricoCalendarApi
 
         protected override void GetActor(ActorSystem system)
         {
-            ServiceActorRefs.CalendarServiceActor = system
+/*            ServiceActorRefs.CalendarServiceActor = system
                 .ActorSelection(((CalendarApiSettings) ApiSettings).CalendarServiceActorUrl)
                 .ResolveOne(TimeSpan.FromSeconds(ResolveOneTimeout)).Result;
             ServiceActorRefs.CalendarQueryActor = system
                 .ActorSelection(((CalendarApiSettings) ApiSettings).CalendarQueryActorUrl)
-                .ResolveOne(TimeSpan.FromSeconds(ResolveOneTimeout)).Result;
+                .ResolveOne(TimeSpan.FromSeconds(ResolveOneTimeout)).Result;*/
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.

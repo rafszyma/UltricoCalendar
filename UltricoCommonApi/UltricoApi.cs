@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Swashbuckle.AspNetCore.Swagger;
+using UltricoCalendarApi;
 
 namespace UltricoApiCommon
 {
@@ -67,6 +68,7 @@ namespace UltricoApiCommon
             {
                 // UseFullTypeNameInSchemaIds replacement for .NET Core
                 options.CustomSchemaIds(x => x.FullName);
+                options.OperationFilter<GenericActionFilter>();
             });
         }
 
