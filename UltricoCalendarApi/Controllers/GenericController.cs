@@ -3,7 +3,7 @@ using UltricoApiCommon;
 
 namespace UltricoCalendarApi.Controllers
 {
-    public class GenericController<T> : UltricoController where T : MyModel
+    public class GenericController<T> : UltricoController where T : IMyModel
     {
         [HttpGet]
         public IActionResult GetAll(T typo)

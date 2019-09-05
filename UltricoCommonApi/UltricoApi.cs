@@ -68,7 +68,7 @@ namespace UltricoApiCommon
             {
                 // UseFullTypeNameInSchemaIds replacement for .NET Core
                 options.CustomSchemaIds(x => x.FullName);
-                options.OperationFilter<GenericActionFilter>();
+                options.OperationFilter<GenericOperationFilter>();
             });
         }
 

@@ -21,7 +21,7 @@ namespace UltricoCalendarApi
 
             return WebHost.CreateDefaultBuilder(args).UseConfiguration(config)
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseKestrel().UseUrls("http://*:5010")
+                .UseKestrel().UseUrls("http://*:5000")
                 .UseStartup<Startup>();
         }
     }
